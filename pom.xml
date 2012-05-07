@@ -14,6 +14,7 @@
 
   <modules>
 	  <module>nexus-nexus5030-plugin</module>
+	  <module>nexus-nexus5045-plugin</module>
 	</modules>
 
 </project>
