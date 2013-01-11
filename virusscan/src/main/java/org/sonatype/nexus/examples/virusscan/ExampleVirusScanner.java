@@ -20,7 +20,7 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
- * Example {@link VirusScanner} implementation which simulates an infection for any item name containing "infected".
+ * Example {@link VirusScanner} implementation which simulates an infection for any item name containing the string "infected".
  *
  * @since 1.0
  */
