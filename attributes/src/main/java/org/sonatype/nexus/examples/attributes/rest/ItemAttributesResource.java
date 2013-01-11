@@ -13,6 +13,7 @@
 
 package org.sonatype.nexus.examples.attributes.rest;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.restlet.Context;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
@@ -37,6 +38,7 @@ import javax.inject.Singleton;
 import java.util.Map;
 
 import static com.google.common.base.Preconditions.checkArgument;
+import static org.sonatype.nexus.rest.repositories.AbstractRepositoryPlexusResource.REPOSITORY_ID_KEY;
 
 /**
  * Item attributes REST resource.
@@ -51,13 +53,16 @@ public class ItemAttributesResource
     public static final String SYSTEM_ATTR_PREFIX = "storageItem-";
 
     public ItemAttributesResource() {
+        // enable GET
         setReadable(true);
+
+        // enable PUT and DELETE (even though DELETE is not supported)
         setModifiable(true);
     }
 
     @Override
     public String getResourceUri() {
-        return "/repositories/{" + AbstractRepositoryPlexusResource.REPOSITORY_ID_KEY + "}/attributes";
+        return "/repositories/{" + REPOSITORY_ID_KEY + "}/attributes";
     }
 
     @Override
@@ -77,7 +82,7 @@ public class ItemAttributesResource
     }
 
     @Override
-    public void configureXStream(XStream xstream) {
+    public void configureXStream(final XStream xstream) {
         super.configureXStream(xstream);
         xstream.processAnnotations(AttributeDTO.class);
         xstream.processAnnotations(AttributesDTO.class);
@@ -88,10 +93,11 @@ public class ItemAttributesResource
         throws NoSuchRepositoryException
     {
         return getUnprotectedRepositoryRegistry().getRepository(
-            request.getAttributes().get(AbstractRepositoryPlexusResource.REPOSITORY_ID_KEY).toString());
+            request.getAttributes().get(REPOSITORY_ID_KEY).toString());
     }
 
-    private void applyTo(final AttributesDTO attributes, final Attributes proxyAttributes) {
+    @VisibleForTesting
+    static void applyTo(final AttributesDTO attributes, final Attributes proxyAttributes) {
         for (AttributeDTO attribute : attributes) {
             String key = attribute.getKey();
             checkArgument(!key.startsWith(SYSTEM_ATTR_PREFIX), "Can not override system attribute: %s", key);
@@ -99,7 +105,8 @@ public class ItemAttributesResource
         }
     }
 
-    private AttributesDTO buildFrom(final Attributes proxyAttributes) {
+    @VisibleForTesting
+    static AttributesDTO buildFrom(final Attributes proxyAttributes) {
         Map<String, String> attributesMap = proxyAttributes.asMap();
         AttributesDTO result = new AttributesDTO();
         for (Map.Entry<String, String> entry : attributesMap.entrySet()) {
