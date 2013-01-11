@@ -22,11 +22,11 @@ import org.sonatype.nexus.formfields.StringTextFormField;
 import org.sonatype.nexus.tasks.descriptors.AbstractScheduledTaskDescriptor;
 import org.sonatype.nexus.tasks.descriptors.ScheduledTaskDescriptor;
 
-@Component( role = ScheduledTaskDescriptor.class, hint = "Nexus5030", description = "NEXUS-5030 Task" )
+@Component( role = ScheduledTaskDescriptor.class, hint = "CrawlTask", description = "Crawling Task" )
 public class CrawlTaskDescriptor
     extends AbstractScheduledTaskDescriptor
 {
-    public static final String ID = "Nexus5030Task";
+    public static final String ID = "CrawlTask";
 
     public static final String REPOSITORY_FIELD_ID = "repositoryId";
 
@@ -48,7 +48,7 @@ public class CrawlTaskDescriptor
 
     public String getName()
     {
-        return "NEXUS-5030 Task";
+        return "Crawling Task";
     }
 
     public List<FormField> formFields()
