@@ -12,8 +12,7 @@
     See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
 
 -->
-NEXUS-5045
-==========
+# Nexus Attributes Example Plugin
 
 Example plugin for "Exposing attributes".
 
