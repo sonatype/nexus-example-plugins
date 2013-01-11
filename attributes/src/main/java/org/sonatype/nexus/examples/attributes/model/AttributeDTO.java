@@ -15,6 +15,8 @@ package org.sonatype.nexus.examples.attributes.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import javax.annotation.Nullable;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
@@ -29,7 +31,7 @@ public class AttributeDTO
 
     private final String value;
 
-    public AttributeDTO(final String key, final String value) {
+    public AttributeDTO(final String key, final @Nullable String value) {
         this.key = checkNotNull(key);
         this.value = value;
     }
