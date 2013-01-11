@@ -13,6 +13,7 @@
 
 package org.sonatype.nexus.examples.virusscan;
 
+import com.google.common.annotations.VisibleForTesting;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.AccessDeniedException;
 import org.sonatype.nexus.proxy.IllegalOperationException;
@@ -57,7 +58,8 @@ public class VirusScannerRequestProcessor
         this.scanners = checkNotNull(scanners);
     }
 
-    private boolean scan(final StorageFileItem item) {
+    @VisibleForTesting
+    boolean hasVirus(final StorageFileItem item) {
         getLogger().debug("Scanning item for viruses: {}", item.getPath());
 
         boolean infected = false;
@@ -99,10 +101,7 @@ public class VirusScannerRequestProcessor
     public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
         if (item instanceof StorageFileItem) {
             StorageFileItem file = (StorageFileItem) item;
-            boolean hasVirus = scan(file);
-
-            // do not cache if a virus is detected
-            return !hasVirus;
+            return !hasVirus(file);
         }
         else {
             return true;
