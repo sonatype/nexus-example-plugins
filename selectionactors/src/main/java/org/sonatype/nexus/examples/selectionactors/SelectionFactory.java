@@ -12,6 +12,11 @@
  */
 package org.sonatype.nexus.examples.selectionactors;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface SelectionFactory
 {
     SelectionCollector getCollector();

@@ -17,6 +17,11 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.plexus.appevents.AbstractEvent;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class InfectedItemFoundEvent
     extends AbstractEvent<Repository>
 {

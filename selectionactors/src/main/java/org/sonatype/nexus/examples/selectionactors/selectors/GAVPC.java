@@ -17,6 +17,11 @@ import java.util.regex.Pattern;
 
 import org.sonatype.nexus.proxy.maven.gav.Gav;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class GAVPC
 {
     private final Pattern g;

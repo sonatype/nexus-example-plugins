@@ -16,6 +16,11 @@ import org.codehaus.plexus.component.annotations.Component;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = SelectionFactory.class )
 public class InMemorySelectionFactory
     implements SelectionFactory

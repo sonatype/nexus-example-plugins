@@ -24,6 +24,11 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.target.Target;
 import org.sonatype.nexus.proxy.target.TargetRegistry;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = Selector.class, hint = "target" )
 public class TargetSelector
     extends AbstractWalkingSelector

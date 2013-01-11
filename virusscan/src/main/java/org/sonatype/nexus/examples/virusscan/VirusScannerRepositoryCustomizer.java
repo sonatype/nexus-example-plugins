@@ -22,6 +22,11 @@ import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestProcessor;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class VirusScannerRepositoryCustomizer
     implements RepositoryCustomizer
 {

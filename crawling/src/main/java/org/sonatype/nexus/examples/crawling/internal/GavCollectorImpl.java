@@ -31,6 +31,11 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Named
 @Singleton
 public class GavCollectorImpl

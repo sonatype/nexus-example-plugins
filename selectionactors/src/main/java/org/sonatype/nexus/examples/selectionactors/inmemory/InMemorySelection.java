@@ -20,6 +20,11 @@ import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionEntry;
 import org.sonatype.nexus.proxy.item.RepositoryItemUid;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class InMemorySelection
     implements Selection
 {

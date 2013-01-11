@@ -18,6 +18,11 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.walker.AbstractWalkerProcessor;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class TagWalkerProcessor
     extends AbstractWalkerProcessor
 {

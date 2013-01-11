@@ -31,6 +31,11 @@ import org.sonatype.plexus.appevents.ApplicationEventMulticaster;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Named
 public class VirusScannerRequestProcessor
     implements RequestProcessor

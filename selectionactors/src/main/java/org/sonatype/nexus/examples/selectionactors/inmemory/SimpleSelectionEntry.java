@@ -18,6 +18,11 @@ import org.sonatype.nexus.proxy.repository.Repository;
 
 import com.google.common.base.Preconditions;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class SimpleSelectionEntry
     implements SelectionEntry
 {

@@ -16,6 +16,11 @@ import java.util.Map;
 
 import org.sonatype.nexus.proxy.repository.Repository;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface Selector
 {
     /**

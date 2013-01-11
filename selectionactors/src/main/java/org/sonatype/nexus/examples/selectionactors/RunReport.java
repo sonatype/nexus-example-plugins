@@ -14,6 +14,11 @@ package org.sonatype.nexus.examples.selectionactors;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @XStreamAlias( "runReport" )
 public class RunReport
 {
@@ -32,7 +37,6 @@ public class RunReport
     public RunReport( final String repositoryId, final String selectorId, final int selectedCount,
                       final String actorId, final int actedCount, final boolean success )
     {
-        super();
         this.repositoryId = repositoryId;
         this.selectorId = selectorId;
         this.selectedCount = selectedCount;

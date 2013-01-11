@@ -21,6 +21,11 @@ import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = Selector.class, hint = "target" )
 public class TagSelector
     extends AbstractWalkingSelector

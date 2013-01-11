@@ -27,7 +27,7 @@ import org.sonatype.nexus.proxy.storage.UnsupportedStorageOperationException;
 /**
  * A simple "delete" actor, that deletes all the items in selection.
  * 
- * @author cstamas
+ * @since 1.0
  */
 @Component( role = Actor.class, hint = "delete" )
 public class DeleteActor

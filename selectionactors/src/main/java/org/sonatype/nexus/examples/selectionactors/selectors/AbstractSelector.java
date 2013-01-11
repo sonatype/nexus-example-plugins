@@ -17,6 +17,11 @@ import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.examples.selectionactors.Selector;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public abstract class AbstractSelector
     extends AbstractLoggingComponent
     implements Selector

@@ -14,6 +14,11 @@ package org.sonatype.nexus.examples.selectionactors;
 
 import org.sonatype.nexus.proxy.repository.Repository;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface SelectionEntry
 {
     Repository getRepository();

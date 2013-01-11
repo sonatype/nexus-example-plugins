@@ -21,6 +21,11 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 import org.sonatype.nexus.proxy.walker.WalkerProcessor;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public abstract class AbstractWalkingSelector
     extends AbstractSelector
 {

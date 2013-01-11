@@ -34,6 +34,11 @@ import org.sonatype.plexus.rest.resource.PlexusResource;
 
 import com.thoughtworks.xstream.XStream;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = PlexusResource.class, hint = "SelectorActorPlexusResource" )
 public class SelectorActorPlexusResource
     extends AbstractNexusPlexusResource

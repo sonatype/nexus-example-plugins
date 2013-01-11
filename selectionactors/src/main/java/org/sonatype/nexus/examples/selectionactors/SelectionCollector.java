@@ -14,6 +14,11 @@ package org.sonatype.nexus.examples.selectionactors;
 
 import org.sonatype.nexus.proxy.item.StorageItem;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface SelectionCollector
 {
     void add( StorageItem item );

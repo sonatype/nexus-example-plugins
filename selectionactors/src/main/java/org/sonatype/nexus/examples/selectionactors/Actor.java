@@ -15,6 +15,11 @@ package org.sonatype.nexus.examples.selectionactors;
 import java.io.IOException;
 import java.util.Map;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface Actor
 {
     int perform( Selection selection, Map<String, String> terms )

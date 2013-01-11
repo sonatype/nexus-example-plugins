@@ -19,6 +19,11 @@ import org.sonatype.nexus.proxy.maven.gav.Gav;
 import org.sonatype.nexus.proxy.walker.AbstractWalkerProcessor;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class GAVWalkerProcessor
     extends AbstractWalkerProcessor
 {

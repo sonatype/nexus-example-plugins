@@ -27,7 +27,7 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 /**
  * A simple "tag" actor, that "tags" the selected items by setting the supplied attribute value for given attribute key.
  * 
- * @author cstamas
+ * @since 1.0
  */
 @Component( role = Actor.class, hint = "tag" )
 public class TagActor

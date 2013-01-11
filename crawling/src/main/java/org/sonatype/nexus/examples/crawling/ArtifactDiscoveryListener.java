@@ -16,6 +16,11 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.proxy.maven.gav.Gav;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface ArtifactDiscoveryListener
 {
     void beforeWalk( final MavenRepository mavenRepository );

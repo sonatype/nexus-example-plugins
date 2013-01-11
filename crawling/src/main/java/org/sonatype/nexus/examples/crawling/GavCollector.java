@@ -17,6 +17,11 @@ import java.io.IOException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public interface GavCollector
 {
     void collectGAVs( ResourceStoreRequest request, MavenRepository mavenRepository, ArtifactDiscoveryListener listener )

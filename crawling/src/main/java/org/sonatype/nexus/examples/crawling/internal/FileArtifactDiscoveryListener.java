@@ -26,6 +26,13 @@ import org.sonatype.nexus.proxy.utils.RepositoryStringUtils;
 
 import com.google.common.base.Preconditions;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 public class FileArtifactDiscoveryListener
     implements ArtifactDiscoveryListener
 {
@@ -42,7 +49,9 @@ public class FileArtifactDiscoveryListener
     public FileArtifactDiscoveryListener( final File reportFile )
         throws IOException
     {
-        this.reportFile = Preconditions.checkNotNull( reportFile );
+        this.reportFile = checkNotNull(reportFile);
+
+        // FIXME: Buffer!!!
         this.reportPrinter = new PrintStream( reportFile );
     }
 

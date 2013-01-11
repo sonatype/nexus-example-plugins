@@ -19,6 +19,11 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Named("XY")
 @Singleton
 public class XYVirusScanner

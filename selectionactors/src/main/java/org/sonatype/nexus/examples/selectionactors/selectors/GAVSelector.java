@@ -23,6 +23,11 @@ import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.utils.RepositoryStringUtils;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = Selector.class, hint = "gav" )
 public class GAVSelector
     extends AbstractWalkingSelector

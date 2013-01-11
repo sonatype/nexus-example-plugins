@@ -27,6 +27,11 @@ import org.sonatype.scheduling.SchedulerTask;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * ???
+ *
+ * @since 1.0
+ */
 @Component( role = SchedulerTask.class, hint = CrawlTaskDescriptor.ID, instantiationStrategy = "per-lookup" )
 public class CrawlTask
     extends AbstractNexusRepositoriesPathAwareTask<Object>
