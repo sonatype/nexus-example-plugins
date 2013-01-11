@@ -1,21 +1,118 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+    Copyright (c) 2007-2012 Sonatype, Inc. All rights reserved.
+
+    This program is licensed to you under the Apache License Version 2.0,
+    and you may not use this file except in compliance with the Apache License Version 2.0.
+    You may obtain a copy of the Apache License Version 2.0 at http://www.apache.org/licenses/LICENSE-2.0.
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the Apache License Version 2.0 is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+    See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
+
+-->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>org.sonatype.nexus.plugins</groupId>
+  <parent>
+    <groupId>org.sonatype.forge</groupId>
+    <artifactId>forge-parent</artifactId>
+    <version>31</version>
+  </parent>
+
+  <groupId>org.sonatype.nexus.examples</groupId>
   <artifactId>nexus-example-plugins</artifactId>
   <version>1.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
 
-  <name>Nexus Example Plugins (NEXUS-5029)</name>
+  <properties>
+    <nexus.version>2.4-SNAPSHOT</nexus.version>
+    <nexus-plugin.type>nexus-plugin</nexus-plugin.type>
+  </properties>
+
+  <repositories>
+    <repository>
+      <id>rso-public-grid</id>
+      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+    </repository>
+  </repositories>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.sonatype.nexus</groupId>
+        <artifactId>nexus-plugin-api</artifactId>
+        <version>${nexus.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.nexus</groupId>
+        <artifactId>nexus-plugin-test-api</artifactId>
+        <version>${nexus.version}</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.nexus.plugins</groupId>
+        <artifactId>nexus-restlet1x-plugin</artifactId>
+        <type>${nexus-plugin.type}</type>
+        <version>${nexus.version}</version>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
 
   <modules>
-	  <module>nexus-nexus5030-plugin</module>
-	  <module>nexus-nexus5045-plugin</module>
-	  <module>nexus-nexus5046-plugin</module>
-	</modules>
+    <module>attributes</module>
+    <module>crawling</module>
+    <module>selectionactors</module>
+    <module>virusscan</module>
+  </modules>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.sonatype.plugins</groupId>
+        <artifactId>app-lifecycle-maven-plugin</artifactId>
+        <version>1.7</version>
+        <extensions>true</extensions>
+        <dependencies>
+          <dependency>
+            <groupId>org.sonatype.plugins</groupId>
+            <artifactId>app-lifecycle-nexus</artifactId>
+            <version>1.7</version>
+          </dependency>
+        </dependencies>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>pro-plugins</id>
+      <modules>
+        <module>pro-plugins</module>
+      </modules>
+    </profile>
+
+    <profile>
+      <id>idea</id>
+      <properties>
+        <nexus-plugin.type>jar</nexus-plugin.type>
+      </properties>
+    </profile>
+  </profiles>
 
 </project>
