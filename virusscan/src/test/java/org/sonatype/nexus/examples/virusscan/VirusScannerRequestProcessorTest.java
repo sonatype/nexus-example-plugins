@@ -59,6 +59,7 @@ public class VirusScannerRequestProcessorTest
         // second scanner does
         when(scanner2.hasVirus(any(StorageFileItem.class))).thenReturn(true);
 
+        // use a deep mock here, as the scanner needs to reach into the item to post and event
         StorageFileItem item = mock(StorageFileItem.class, RETURNS_DEEP_STUBS);
 
         // virus is detected (by one of the scanners)
