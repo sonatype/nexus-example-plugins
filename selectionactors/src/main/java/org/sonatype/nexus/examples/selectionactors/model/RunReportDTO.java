@@ -74,4 +74,16 @@ public class RunReportDTO
     {
         return success;
     }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+            "repositoryId='" + repositoryId + '\'' +
+            ", selectorId='" + selectorId + '\'' +
+            ", selectedCount=" + selectedCount +
+            ", actorId='" + actorId + '\'' +
+            ", actedCount=" + actedCount +
+            ", success=" + success +
+            '}';
+    }
 }
