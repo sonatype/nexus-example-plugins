@@ -24,6 +24,7 @@ import javax.inject.Singleton;
  *
  * @since 1.0
  */
+@Named
 @Singleton
 public class ExampleVirusScanner
     extends AbstractLoggingComponent

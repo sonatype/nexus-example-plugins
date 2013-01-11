@@ -56,6 +56,16 @@ public class VirusScannerRequestProcessor
     {
         this.eventBus = checkNotNull(eventBus);
         this.scanners = checkNotNull(scanners);
+
+        if (scanners.isEmpty()) {
+            getLogger().warn("No VirusScanner components detected");
+        }
+        else if (getLogger().isDebugEnabled()) {
+            getLogger().debug("Virus scanners:");
+            for (VirusScanner scanner : scanners) {
+                getLogger().debug("  {}", scanner);
+            }
+        }
     }
 
     @VisibleForTesting
