@@ -19,9 +19,9 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 import org.codehaus.plexus.util.StringUtils;
+import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
+import org.sonatype.nexus.examples.crawling.GavCollector;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
-import org.sonatype.nexus.plugins.nexus5030.ArtifactDiscoveryListener;
-import org.sonatype.nexus.plugins.nexus5030.GavCollector;
 import org.sonatype.nexus.proxy.ItemNotFoundException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.item.RepositoryItemUid;

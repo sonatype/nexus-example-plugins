@@ -18,7 +18,7 @@ import java.io.PrintStream;
 import java.util.Date;
 
 import org.codehaus.plexus.util.StringUtils;
-import org.sonatype.nexus.plugins.nexus5030.ArtifactDiscoveryListener;
+import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.proxy.maven.gav.Gav;

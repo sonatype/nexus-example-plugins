@@ -12,7 +12,7 @@
  */
 package org.sonatype.nexus.examples.crawling.internal;
 
-import org.sonatype.nexus.plugins.nexus5030.ArtifactDiscoveryListener;
+import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
 import org.sonatype.nexus.proxy.item.StorageCollectionItem;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.item.uid.IsHiddenAttribute;

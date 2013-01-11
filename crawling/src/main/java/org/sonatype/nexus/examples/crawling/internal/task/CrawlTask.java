@@ -12,20 +12,20 @@
  */
 package org.sonatype.nexus.examples.crawling.internal.task;
 
-import java.io.File;
-import java.io.IOException;
-
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.nexus.configuration.application.ApplicationConfiguration;
-import org.sonatype.nexus.plugins.nexus5030.ArtifactDiscoveryListener;
-import org.sonatype.nexus.plugins.nexus5030.GavCollector;
+import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
+import org.sonatype.nexus.examples.crawling.GavCollector;
 import org.sonatype.nexus.examples.crawling.internal.FileArtifactDiscoveryListener;
 import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.scheduling.AbstractNexusRepositoriesPathAwareTask;
 import org.sonatype.scheduling.SchedulerTask;
+
+import java.io.File;
+import java.io.IOException;
 
 @Component( role = SchedulerTask.class, hint = CrawlTaskDescriptor.ID, instantiationStrategy = "per-lookup" )
 public class CrawlTask
@@ -106,6 +106,6 @@ public class CrawlTask
         throws IOException
     {
         return new FileArtifactDiscoveryListener( new File(
-            applicationConfiguration.getWorkingDirectory( "nexus-5030" ), mavenRepository.getId() + ".txt" ) );
+            applicationConfiguration.getWorkingDirectory( "crawling" ), mavenRepository.getId() + ".txt" ) );
     }
 }
