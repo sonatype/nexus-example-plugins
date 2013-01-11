@@ -11,43 +11,38 @@
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
 
-package org.sonatype.nexus.examples.attributes;
+package org.sonatype.nexus.examples.attributes.model;
 
+import com.google.common.collect.Lists;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import java.util.Iterator;
+import java.util.List;
 
 /**
- * Attribute key-value pair.
+ * Attribute collection.
  *
  * @since 1.0
  */
-@XStreamAlias("attribute")
-public class Attribute
+@XStreamAlias("attributes")
+public class AttributesDTO
+    implements Iterable<AttributeDTO>
 {
-    private final String key;
+    private final List<AttributeDTO> attributes = Lists.newArrayList();
 
-    private final String value;
-
-    public Attribute(final String key, final String value) {
-        this.key = checkNotNull(key);
-        this.value = value;
+    public List<AttributeDTO> getAttributes() {
+        return attributes;
     }
 
-    public String getKey() {
-        return key;
+    @Override
+    public Iterator<AttributeDTO> iterator() {
+        return attributes.iterator();
     }
-
-    public String getValue() {
-        return value;
-    }
-
 
     @Override
     public String toString() {
         return getClass().getSimpleName() + "{" +
-            "key='" + key + '\'' +
-            ", value='" + value + '\'' +
+            "attributes=" + attributes +
             '}';
     }
 }
