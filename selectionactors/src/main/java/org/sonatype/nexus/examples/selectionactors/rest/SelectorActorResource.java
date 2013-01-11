@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.nexus.examples.selectionactors;
+package org.sonatype.nexus.examples.selectionactors.rest;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,6 +26,10 @@ import org.restlet.data.Response;
 import org.restlet.data.Status;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.Variant;
+import org.sonatype.nexus.examples.selectionactors.Actor;
+import org.sonatype.nexus.examples.selectionactors.RunReport;
+import org.sonatype.nexus.examples.selectionactors.Selection;
+import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.rest.AbstractNexusPlexusResource;
@@ -40,7 +44,7 @@ import com.thoughtworks.xstream.XStream;
  * @since 1.0
  */
 @Component( role = PlexusResource.class, hint = "SelectorActorPlexusResource" )
-public class SelectorActorPlexusResource
+public class SelectorActorResource
     extends AbstractNexusPlexusResource
 {
     private static final String REPOSITORY_ID = "repositoryId";
@@ -55,7 +59,7 @@ public class SelectorActorPlexusResource
     @Requirement( role = Actor.class )
     private Map<String, Actor> actors;
 
-    public SelectorActorPlexusResource()
+    public SelectorActorResource()
     {
         setReadable( true );
         setModifiable( false );
