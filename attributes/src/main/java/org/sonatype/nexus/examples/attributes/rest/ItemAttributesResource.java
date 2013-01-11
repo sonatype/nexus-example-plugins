@@ -14,6 +14,7 @@
 package org.sonatype.nexus.examples.attributes.rest;
 
 import com.google.common.annotations.VisibleForTesting;
+import com.thoughtworks.xstream.XStream;
 import org.restlet.Context;
 import org.restlet.data.Request;
 import org.restlet.data.Response;
@@ -28,10 +29,7 @@ import org.sonatype.nexus.proxy.attributes.Attributes;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.rest.AbstractResourceStoreContentPlexusResource;
-import org.sonatype.nexus.rest.repositories.AbstractRepositoryPlexusResource;
 import org.sonatype.plexus.rest.resource.PathProtectionDescriptor;
-
-import com.thoughtworks.xstream.XStream;
 
 import javax.inject.Named;
 import javax.inject.Singleton;
