@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.nexus.plugins.nexus5045;
+package org.sonatype.nexus.examples.attributes;
 
 import java.util.ArrayList;
 import java.util.HashMap;
