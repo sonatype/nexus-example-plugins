@@ -23,7 +23,7 @@ import org.sonatype.nexus.tasks.descriptors.AbstractScheduledTaskDescriptor;
 import org.sonatype.nexus.tasks.descriptors.ScheduledTaskDescriptor;
 
 @Component( role = ScheduledTaskDescriptor.class, hint = "Nexus5030", description = "NEXUS-5030 Task" )
-public class Nexus5030TaskDescriptor
+public class CrawlTaskDescriptor
     extends AbstractScheduledTaskDescriptor
 {
     public static final String ID = "Nexus5030Task";

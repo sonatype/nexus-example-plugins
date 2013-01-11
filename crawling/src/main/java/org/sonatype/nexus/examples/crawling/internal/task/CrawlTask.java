@@ -27,11 +27,8 @@ import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.scheduling.AbstractNexusRepositoriesPathAwareTask;
 import org.sonatype.scheduling.SchedulerTask;
 
-/**
- * Empty trash.
- */
-@Component( role = SchedulerTask.class, hint = Nexus5030TaskDescriptor.ID, instantiationStrategy = "per-lookup" )
-public class Nexus5030Task
+@Component( role = SchedulerTask.class, hint = CrawlTaskDescriptor.ID, instantiationStrategy = "per-lookup" )
+public class CrawlTask
     extends AbstractNexusRepositoriesPathAwareTask<Object>
 {
     private static final String ACTION = "NEXUS5030";
@@ -45,13 +42,13 @@ public class Nexus5030Task
     @Override
     protected String getRepositoryFieldId()
     {
-        return Nexus5030TaskDescriptor.REPOSITORY_FIELD_ID;
+        return CrawlTaskDescriptor.REPOSITORY_FIELD_ID;
     }
 
     @Override
     protected String getRepositoryPathFieldId()
     {
-        return Nexus5030TaskDescriptor.REPOSITORY_PATH_FIELD_ID;
+        return CrawlTaskDescriptor.REPOSITORY_PATH_FIELD_ID;
     }
 
     @Override
