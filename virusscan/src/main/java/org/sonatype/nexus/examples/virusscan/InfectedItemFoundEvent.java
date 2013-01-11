@@ -17,23 +17,35 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.plexus.appevents.AbstractEvent;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
- * ???
+ * Event fired when a virus has been detected in an item.
  *
  * @since 1.0
  */
 public class InfectedItemFoundEvent
     extends AbstractEvent<Repository>
 {
-    private final StorageFileItem file;
+    private final StorageFileItem item;
 
-    public InfectedItemFoundEvent(final Repository component, final StorageFileItem file) {
-        super(component);
-
-        this.file = file;
+    public InfectedItemFoundEvent(final Repository repository, final StorageFileItem item) {
+        super(repository);
+        this.item = checkNotNull(item);
     }
 
-    public StorageFileItem getInfectedFile() {
-        return file;
+    public Repository getRepository() {
+        return getEventSender();
+    }
+
+    public StorageFileItem getItem() {
+        return item;
+    }
+
+    @Override
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+            "item=" + item +
+            '}';
     }
 }

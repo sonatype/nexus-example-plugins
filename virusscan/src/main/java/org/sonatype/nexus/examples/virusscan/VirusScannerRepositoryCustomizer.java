@@ -23,17 +23,19 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestProcessor;
 
 /**
- * ???
+ * Configures the {@link VirusScannerRepositoryCustomizer} on all proxy repositories.
  *
  * @since 1.0
  */
 public class VirusScannerRepositoryCustomizer
     implements RepositoryCustomizer
 {
+    private final RequestProcessor processor;
+
     @Inject
-    private
-    @Named("virusScanner")
-    RequestProcessor virusScannerRequestProcessor;
+    public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestProcessor processor) {
+        this.processor = processor;
+    }
 
     public boolean isHandledRepository(final Repository repository) {
         // handle proxy reposes only
@@ -41,6 +43,6 @@ public class VirusScannerRepositoryCustomizer
     }
 
     public void configureRepository(final Repository repository) throws ConfigurationException {
-        repository.getRequestProcessors().put("virusScanner", virusScannerRequestProcessor);
+        repository.getRequestProcessors().put(VirusScannerRequestProcessor.ID, processor);
     }
 }

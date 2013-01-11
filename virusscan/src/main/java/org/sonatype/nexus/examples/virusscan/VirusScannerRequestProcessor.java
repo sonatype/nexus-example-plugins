@@ -13,9 +13,7 @@
 
 package org.sonatype.nexus.examples.virusscan;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-
+import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.AccessDeniedException;
 import org.sonatype.nexus.proxy.IllegalOperationException;
 import org.sonatype.nexus.proxy.ItemNotFoundException;
@@ -27,29 +25,54 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestProcessor;
-import org.sonatype.plexus.appevents.ApplicationEventMulticaster;
+import org.sonatype.sisu.goodies.eventbus.EventBus;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * ???
+ * Virus scanning {@link RequestProcessor}.
  *
  * @since 1.0
  */
-@Named
+@Named(VirusScannerRequestProcessor.ID)
 public class VirusScannerRequestProcessor
+    extends AbstractLoggingComponent
     implements RequestProcessor
 {
-    private ApplicationEventMulticaster applicationEventMulticaster;
+    public static final String ID = "virus-scanner";
 
-    private VirusScanner virusScanner;
+    private final EventBus eventBus;
+
+    private final List<VirusScanner> scanners;
 
     @Inject
-    public VirusScannerRequestProcessor(final ApplicationEventMulticaster applicationEventMulticaster,
-                                        final @Named("XY") VirusScanner virusScanner)
+    public VirusScannerRequestProcessor(final EventBus eventBus,
+                                        final List<VirusScanner> scanners)
     {
-        this.applicationEventMulticaster = checkNotNull(applicationEventMulticaster);
-        this.virusScanner = checkNotNull(virusScanner);
+        this.eventBus = checkNotNull(eventBus);
+        this.scanners = checkNotNull(scanners);
+    }
+
+    private boolean scan(final StorageFileItem item) {
+        getLogger().debug("Scanning item for viruses: {}", item.getPath());
+
+        boolean infected = false;
+        for (VirusScanner scanner : scanners) {
+            if (scanner.hasVirus(item)) {
+                infected = true;
+                eventBus.post(new InfectedItemFoundEvent(item.getRepositoryItemUid().getRepository(), item));
+            }
+        }
+
+        if (infected) {
+            getLogger().warn("Infection detected in item: {}", item.getPath());
+        }
+
+        return infected;
     }
 
     @Override
@@ -65,27 +88,20 @@ public class VirusScannerRequestProcessor
     }
 
     @Override
-    public boolean shouldRetrieve(Repository repository, ResourceStoreRequest request, StorageItem item)
+    public boolean shouldRetrieve(final Repository repository, final ResourceStoreRequest request, final StorageItem item)
         throws IllegalOperationException, ItemNotFoundException, AccessDeniedException
     {
         // don't decide until have content
         return true;
     }
 
-
     @Override
     public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
         if (item instanceof StorageFileItem) {
             StorageFileItem file = (StorageFileItem) item;
+            boolean hasVirus = scan(file);
 
-            // do a virus scan
-            boolean hasVirus = virusScanner.hasVirus(file);
-
-            if (hasVirus) {
-                applicationEventMulticaster.notifyEventListeners(
-                    new InfectedItemFoundEvent(item.getRepositoryItemUid().getRepository(), file));
-            }
-
+            // do not cache if a virus is detected
             return !hasVirus;
         }
         else {

@@ -20,21 +20,16 @@ import javax.inject.Named;
 import javax.inject.Singleton;
 
 /**
- * ???
+ * Example {@link VirusScanner} implementation which simulates an infection for any item name containing "infected".
  *
  * @since 1.0
  */
-@Named("XY")
 @Singleton
-public class XYVirusScanner
+public class ExampleVirusScanner
     extends AbstractLoggingComponent
     implements VirusScanner
 {
-    public boolean hasVirus(final StorageFileItem file) {
-        // DO THE JOB HERE
-        getLogger().debug("Kung fu VirusScanner --- scanning for viruses on item: {}", file.getPath());
-
-        // simulating virus hit by having the filename contain the "infected" string
-        return file.getName().contains("infected");
+    public boolean hasVirus(final StorageFileItem item) {
+        return item.getName().contains("infected");
     }
 }

@@ -15,11 +15,16 @@ package org.sonatype.nexus.examples.virusscan;
 import org.sonatype.nexus.proxy.item.StorageFileItem;
 
 /**
- * ???
+ * Virus scanner pluggable abstraction.
  *
  * @since 1.0
  */
 public interface VirusScanner
 {
-    boolean hasVirus(StorageFileItem file);
+    /**
+     * Check if the given item has a virus or not.
+     *
+     * @return  True if the item has a virus; else false.
+     */
+    boolean hasVirus(StorageFileItem item);
 }

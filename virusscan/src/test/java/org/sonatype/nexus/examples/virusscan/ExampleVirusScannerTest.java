@@ -23,16 +23,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Tests for {@link XYVirusScanner}.
+ * Tests for {@link ExampleVirusScanner}.
  */
-public class XYVirusScannerTest
+public class ExampleVirusScannerTest
     extends TestSupport
 {
-    private XYVirusScanner underTest;
+    private ExampleVirusScanner underTest;
 
     @Before
     public void setUp() throws Exception {
-        underTest = new XYVirusScanner();
+        underTest = new ExampleVirusScanner();
     }
 
     @Test
