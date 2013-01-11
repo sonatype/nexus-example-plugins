@@ -27,6 +27,8 @@ import com.sonatype.rule.RuleResult;
 
 /**
  * Checks if an artifacts path contains the word 'broken'.
+ *
+ * @since 1.0
  */
 @Component( role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID )
 public class BrokenArtifactStagingRuleEvaluator

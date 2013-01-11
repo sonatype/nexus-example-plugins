@@ -16,6 +16,11 @@ import org.codehaus.plexus.component.annotations.Component;
 
 import com.sonatype.nexus.staging.rule.StagingRuleType;
 
+/**
+ * {@link Maven220BlockingStagingRuleEvaluator} UI descriptor.
+ *
+ * @since 1.0
+ */
 @Component( role = StagingRuleType.class, hint = Maven220BlockingStagingRuleType.TYPE_ID )
 public class Maven220BlockingStagingRuleType
     extends StagingRuleType

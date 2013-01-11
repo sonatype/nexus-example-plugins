@@ -27,6 +27,8 @@ import org.sonatype.nexus.logging.AbstractLoggingComponent;
 
 /**
  * Evaluates a staging repository to see if Maven 2.2.0 was used. Maven 2.2.0 generates incorrect signatures.
+ *
+ * @since 1.0
  */
 @Component( role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID )
 public class Maven220BlockingStagingRuleEvaluator

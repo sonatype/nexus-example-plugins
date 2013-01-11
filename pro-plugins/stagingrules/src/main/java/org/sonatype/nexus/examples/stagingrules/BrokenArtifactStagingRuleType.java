@@ -16,6 +16,11 @@ import org.codehaus.plexus.component.annotations.Component;
 
 import com.sonatype.nexus.staging.rule.StagingRuleType;
 
+/**
+ * {@link BrokenArtifactStagingRuleEvaluator} UI descriptor.
+ *
+ * @since 1.0
+ */
 @Component( role = StagingRuleType.class, hint = BrokenArtifactStagingRuleType.TYPE_ID )
 public class BrokenArtifactStagingRuleType
     extends StagingRuleType
