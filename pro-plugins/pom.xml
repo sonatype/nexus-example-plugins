@@ -27,6 +27,12 @@
   <artifactId>pro-plugins</artifactId>
   <packaging>pom</packaging>
 
+  <properties>
+    <it.nexus.bundle.groupId>com.sonatype.nexus</it.nexus.bundle.groupId>
+    <it.nexus.bundle.artifactId>nexus-professional-bundle-template</it.nexus.bundle.artifactId>
+    <it.nexus.bundle.version>${nexus.version}</it.nexus.bundle.version>
+  </properties>
+
   <repositories>
     <repository>
       <id>rso-private-nexus-dev</id>
