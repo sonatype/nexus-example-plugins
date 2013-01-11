@@ -45,9 +45,10 @@
   </dependencyManagement>
 
   <modules>
-    <module>attributes-nexus-plugin</module>
-    <module>crawling-nexus-plugin</module>
-    <module>selectionactors-nexus-plugin</module>
+    <module>attributes</module>
+    <module>crawling</module>
+    <module>selectionactors</module>
+    <!--<module>virusscan</module>-->
   </modules>
 
   <build>
