@@ -30,6 +30,11 @@ import org.sonatype.plexus.rest.resource.PlexusResource;
 
 import com.thoughtworks.xstream.XStream;
 
+/**
+ * Item attributes REST resource.
+ *
+ * @since 1.0
+ */
 @Component( role = PlexusResource.class, hint = "ItemAttributesPlexusResource" )
 public class ItemAttributesPlexusResource
     extends AbstractResourceStoreContentPlexusResource

@@ -10,87 +10,72 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.attributes;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
- * A simple non-thread safe DTO for attributes.
- * 
- * @author cstamas
+ * Attribute collection.  This class is not thread-safe.
+ *
+ * @since 1.0
  */
-@XStreamAlias( "attributes" )
+@XStreamAlias("attributes")
 public class Attributes
 {
+    public static final String SYSTEM_ATTR_PREFIX = "storageItem-";
+
     /**
      * The actual list holding the payload.
      */
-    private final List<Attribute> attributes;
+    private final List<Attribute> attributes = Lists.newArrayList();
 
     /**
-     * A transient map for easier lookups.
+     * Transient attribute lookup map.
      */
-    private transient final Map<String, Attribute> attributesMap;
+    private transient final Map<String, Attribute> attributesMap = Maps.newHashMap();
 
-    public Attributes()
-    {
-        this.attributes = new ArrayList<Attribute>();
-        this.attributesMap = new HashMap<String, Attribute>();
-    }
-
-    public Attribute addAttribute( final Attribute attribute )
-    {
-        final Attribute result = attributesMap.put( attribute.getKey(), attribute );
-        if ( result != null )
-        {
-            attributes.remove( result );
+    public Attribute addAttribute(final Attribute attribute) {
+        final Attribute result = attributesMap.put(attribute.getKey(), attribute);
+        if (result != null) {
+            attributes.remove(result);
         }
-        attributes.add( attribute );
+        attributes.add(attribute);
         return result;
     }
 
-    public Attribute getAttribute( final String key )
-    {
-        return attributesMap.get( key );
+    public Attribute getAttribute(final String key) {
+        return attributesMap.get(key);
     }
 
-    public void clear()
-    {
+    public void clear() {
         attributes.clear();
         attributesMap.clear();
     }
 
-    public void applyTo( org.sonatype.nexus.proxy.attributes.Attributes proxyAttributes )
+    public void applyTo(org.sonatype.nexus.proxy.attributes.Attributes proxyAttributes)
         throws IllegalArgumentException
     {
-        for ( Attribute attribute : attributes )
-        {
-            if ( attribute.getKey().startsWith( "storageItem-" ) )
-            {
-                // these would override "system" attributes
-                throw new IllegalArgumentException( String.format(
-                    "Attribute %s was about to override a system attribute!", attribute ) );
-            }
-
-            proxyAttributes.put( attribute.getKey(), attribute.getValue() );
+        for (Attribute attribute : attributes) {
+            String key = attribute.getKey();
+            checkArgument(!key.startsWith(SYSTEM_ATTR_PREFIX), "Can not override system attribute: %s", key);
+            proxyAttributes.put(key, attribute.getValue());
         }
     }
 
-    // ==
-
-    public static Attributes buildFrom( org.sonatype.nexus.proxy.attributes.Attributes proxyAttributes )
-    {
+    public static Attributes buildFrom(final org.sonatype.nexus.proxy.attributes.Attributes proxyAttributes) {
         final Map<String, String> attributesMap = proxyAttributes.asMap();
         final Attributes result = new Attributes();
-        for ( Map.Entry<String, String> entry : attributesMap.entrySet() )
-        {
-            final Attribute attribute = new Attribute( entry.getKey(), entry.getValue() );
-            result.addAttribute( attribute );
+        for (Map.Entry<String, String> entry : attributesMap.entrySet()) {
+            final Attribute attribute = new Attribute(entry.getKey(), entry.getValue());
+            result.addAttribute(attribute);
         }
         return result;
     }

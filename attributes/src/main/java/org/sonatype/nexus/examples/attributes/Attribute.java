@@ -10,39 +10,44 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.attributes;
 
-import com.google.common.base.Preconditions;
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
-@XStreamAlias( "attribute" )
+import static com.google.common.base.Preconditions.checkNotNull;
+
+/**
+ * Attribute key-value pair.
+ *
+ * @since 1.0
+ */
+@XStreamAlias("attribute")
 public class Attribute
 {
     private final String key;
 
     private final String value;
 
-    public Attribute( String key, String value )
-    {
-        this.key = Preconditions.checkNotNull( key );
+    public Attribute(final String key, final String value) {
+        this.key = checkNotNull(key);
         this.value = value;
     }
 
-    public String getKey()
-    {
+    public String getKey() {
         return key;
     }
 
-    public String getValue()
-    {
+    public String getValue() {
         return value;
     }
 
-    // ==
 
     @Override
-    public String toString()
-    {
-        return "Attribute [key=" + key + ", value=" + value + "]";
+    public String toString() {
+        return getClass().getSimpleName() + "{" +
+            "key='" + key + '\'' +
+            ", value='" + value + '\'' +
+            '}';
     }
 }
