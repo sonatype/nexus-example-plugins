@@ -32,8 +32,7 @@ import com.sonatype.rule.RuleResult;
 public class BrokenArtifactStagingRuleEvaluator
     extends AbstractStagingRuleEvaluator
 {
-
-    private WalkerFilter filter = new AllItemWalkerFilter();
+    private final WalkerFilter filter = new AllItemWalkerFilter();
 
     @Override
     protected WalkerFilter getWalkerFilter()
@@ -67,8 +66,7 @@ public class BrokenArtifactStagingRuleEvaluator
             else
             {
                 getRuleResult().addSuccess(
-                    "Succeeded to validate artifact '" + item.getPath() + "' on repository '" + getRepository().getId()
-                        + "'." );
+                    "Succeeded to validate artifact '" + item.getPath() + "' on repository '" + getRepository().getId() + "'." );
             }
 
         }
@@ -96,13 +94,7 @@ public class BrokenArtifactStagingRuleEvaluator
 
         public boolean shouldProcessRecursively( WalkerContext ctx, StorageCollectionItem coll )
         {
-            if ( coll.getPath().startsWith( "/." ) )
-            {
-                return false;
-            }
-
-            return true;
+            return !coll.getPath().startsWith("/.");
         }
-
     }
 }

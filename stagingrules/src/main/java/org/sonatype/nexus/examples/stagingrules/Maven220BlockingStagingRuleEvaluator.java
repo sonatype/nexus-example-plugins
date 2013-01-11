@@ -14,7 +14,6 @@ package org.sonatype.nexus.examples.stagingrules;
 
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
-import org.slf4j.Logger;
 
 import com.sonatype.nexus.staging.ProfileMatchNotFoundException;
 import com.sonatype.nexus.staging.StagingManager;
@@ -24,19 +23,18 @@ import com.sonatype.nexus.staging.persist.model.CStageRepository;
 import com.sonatype.nexus.staging.rule.StagingRule;
 import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
 import com.sonatype.rule.RuleResult;
+import org.sonatype.nexus.logging.AbstractLoggingComponent;
 
 /**
  * Evaluates a staging repository to see if Maven 2.2.0 was used. Maven 2.2.0 generates incorrect signatures.
  */
 @Component( role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID )
 public class Maven220BlockingStagingRuleEvaluator
+    extends AbstractLoggingComponent
     implements StagingRuleEvaluator
 {
     @Requirement
     private StagingManager stagingManager;
-
-    @Requirement
-    private Logger logger;
 
     /**
      * The actual user-agent would be something like: Apache-Maven/2.2 (Java 1.6.0_16; Linux 2.6.26-2-amd64)
@@ -58,7 +56,7 @@ public class Maven220BlockingStagingRuleEvaluator
         catch ( ProfileMatchNotFoundException e )
         {
             // this should NEVER happen, we are running this rule against this repo
-            logger.error( "Error finding the staing profile while executing rule.", e );
+            getLogger().error( "Error finding the staing profile while executing rule.", e );
             result.addFailure( "<b>Invalid Staging Profile:</b> This staging profile could not be found." );
             return result; // guard
         }
@@ -85,8 +83,7 @@ public class Maven220BlockingStagingRuleEvaluator
 
         if ( maven220Used )
         {
-            result
-                .addFailure( "<b>Invalid Maven Version:</b> Do not use Maven 2.2.0 signatures are calculated incorrectly." );
+            result.addFailure( "<b>Invalid Maven Version:</b> Do not use Maven 2.2.0 signatures are calculated incorrectly." );
         }
         else
         {
