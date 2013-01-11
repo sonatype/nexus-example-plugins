@@ -54,6 +54,13 @@ public abstract class AttributesITSupport
         // configure logging level of example plugins running in nexus
         configuration.setLogLevel("org.sonatype.nexus.examples", "DEBUG");
 
+        // install the plugin we are testing
+        configuration.addPlugins(
+            artifactResolver().resolvePluginFromDependencyManagement(
+                "org.sonatype.nexus.examples", "attributes-nexus-plugin"
+            )
+        );
+
         return configuration;
     }
 }

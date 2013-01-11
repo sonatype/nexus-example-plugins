@@ -48,6 +48,7 @@
 
   <dependencyManagement>
     <dependencies>
+
       <dependency>
         <groupId>org.sonatype.nexus</groupId>
         <artifactId>nexus-plugin-api</artifactId>
@@ -87,6 +88,24 @@
         <classifier>bundle</classifier>
         <version>${it.nexus.bundle.version}</version>
       </dependency>
+
+      <!-- INTERNAL -->
+
+      <dependency>
+        <groupId>org.sonatype.nexus.examples</groupId>
+        <artifactId>attributes-nexus-plugin</artifactId>
+        <type>${nexus-plugin.type}</type>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.nexus.examples</groupId>
+        <artifactId>attributes-nexus-plugin</artifactId>
+        <type>zip</type>
+        <classifier>bundle</classifier>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
     </dependencies>
   </dependencyManagement>
 
