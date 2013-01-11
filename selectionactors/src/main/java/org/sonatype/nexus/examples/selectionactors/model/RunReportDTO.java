@@ -10,7 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
-package org.sonatype.nexus.examples.selectionactors;
+package org.sonatype.nexus.examples.selectionactors.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
 
@@ -20,7 +20,7 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  * @since 1.0
  */
 @XStreamAlias( "runReport" )
-public class RunReport
+public class RunReportDTO
 {
     private final String repositoryId;
 
@@ -34,8 +34,8 @@ public class RunReport
 
     private final boolean success;
 
-    public RunReport( final String repositoryId, final String selectorId, final int selectedCount,
-                      final String actorId, final int actedCount, final boolean success )
+    public RunReportDTO(final String repositoryId, final String selectorId, final int selectedCount,
+                        final String actorId, final int actedCount, final boolean success)
     {
         this.repositoryId = repositoryId;
         this.selectorId = selectorId;

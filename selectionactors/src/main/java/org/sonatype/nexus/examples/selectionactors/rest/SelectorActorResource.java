@@ -27,7 +27,7 @@ import org.restlet.data.Status;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.Variant;
 import org.sonatype.nexus.examples.selectionactors.Actor;
-import org.sonatype.nexus.examples.selectionactors.RunReport;
+import org.sonatype.nexus.examples.selectionactors.model.RunReportDTO;
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.proxy.NoSuchRepositoryException;
@@ -87,7 +87,7 @@ public class SelectorActorResource
     public void configureXStream( XStream xstream )
     {
         super.configureXStream( xstream );
-        xstream.processAnnotations( RunReport.class );
+        xstream.processAnnotations( RunReportDTO.class );
     }
 
     public Object get( final Context context, final Request request, final Response response, final Variant variant )
@@ -135,7 +135,7 @@ public class SelectorActorResource
             final int selectionSize = selection.size();
             final int actedSize = actor.perform( selection, terms );
 
-            return new RunReport( repository.getId(), selectorKey, selectionSize, actorKey, actedSize, true );
+            return new RunReportDTO( repository.getId(), selectorKey, selectionSize, actorKey, actedSize, true );
         }
         catch ( IllegalArgumentException t )
         {
