@@ -35,6 +35,13 @@
     <nexus-plugin.type>nexus-plugin</nexus-plugin.type>
   </properties>
 
+  <repositories>
+    <repository>
+      <id>rso-public-grid</id>
+      <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
+    </repository>
+  </repositories>
+
   <dependencyManagement>
     <dependencies>
       <dependency>
