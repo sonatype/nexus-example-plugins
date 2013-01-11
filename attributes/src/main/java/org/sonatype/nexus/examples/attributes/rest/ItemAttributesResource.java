@@ -11,7 +11,7 @@
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
 
-package org.sonatype.nexus.examples.attributes;
+package org.sonatype.nexus.examples.attributes.rest;
 
 import org.restlet.Context;
 import org.restlet.data.Request;
