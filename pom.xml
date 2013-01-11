@@ -101,9 +101,9 @@
 
   <profiles>
     <profile>
-      <id>nexus-pro</id>
+      <id>pro-plugins</id>
       <modules>
-        <module>stagingrules</module>
+        <module>pro-plugins</module>
       </modules>
     </profile>
 

@@ -56,7 +56,7 @@ public class Maven220BlockingStagingRuleEvaluator
         catch ( ProfileMatchNotFoundException e )
         {
             // this should NEVER happen, we are running this rule against this repo
-            getLogger().error( "Error finding the staing profile while executing rule.", e );
+            getLogger().error("Error finding the staing profile while executing rule.", e);
             result.addFailure( "<b>Invalid Staging Profile:</b> This staging profile could not be found." );
             return result; // guard
         }
@@ -83,7 +83,7 @@ public class Maven220BlockingStagingRuleEvaluator
 
         if ( maven220Used )
         {
-            result.addFailure( "<b>Invalid Maven Version:</b> Do not use Maven 2.2.0 signatures are calculated incorrectly." );
+            result.addFailure("<b>Invalid Maven Version:</b> Do not use Maven 2.2.0 signatures are calculated incorrectly.");
         }
         else
         {

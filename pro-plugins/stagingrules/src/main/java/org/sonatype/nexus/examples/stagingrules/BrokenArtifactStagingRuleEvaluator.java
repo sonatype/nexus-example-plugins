@@ -94,7 +94,7 @@ public class BrokenArtifactStagingRuleEvaluator
 
         public boolean shouldProcessRecursively( WalkerContext ctx, StorageCollectionItem coll )
         {
-            return !coll.getPath().startsWith("/.");
+            return !coll.getPath().startsWith("/");
         }
     }
 }

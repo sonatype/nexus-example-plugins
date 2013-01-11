@@ -24,29 +24,18 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
-  <artifactId>stagingrules-nexus-plugin</artifactId>
-  <packaging>nexus-plugin</packaging>
+  <artifactId>pro-plugins</artifactId>
+  <packaging>pom</packaging>
 
-  <dependencies>
-    <dependency>
-      <groupId>org.sonatype.nexus</groupId>
-      <artifactId>nexus-plugin-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
+  <repositories>
+    <repository>
+      <id>rso-private-nexus-dev</id>
+      <url>https://repository.sonatype.org/content/groups/private-nexus-dev</url>
+    </repository>
+  </repositories>
 
-    <dependency>
-      <groupId>com.sonatype.nexus.plugin</groupId>
-      <artifactId>nexus-staging-plugin</artifactId>
-      <type>${nexus-plugin.type}</type>
-      <version>2.3-SNAPSHOT</version>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.sonatype.nexus</groupId>
-      <artifactId>nexus-plugin-test-api</artifactId>
-      <scope>test</scope>
-    </dependency>
-  </dependencies>
+  <modules>
+    <module>stagingrules</module>
+  </modules>
 
 </project>
