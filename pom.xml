@@ -19,9 +19,9 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.forge</groupId>
-    <artifactId>forge-parent</artifactId>
-    <version>31</version>
+    <groupId>org.sonatype.nexus</groupId>
+    <artifactId>nexus-plugin-parent</artifactId>
+    <version>2.4-SNAPSHOT</version>
   </parent>
 
   <groupId>org.sonatype.nexus.examples</groupId>
@@ -29,15 +29,6 @@
   <version>1.0-SNAPSHOT</version>
 
   <packaging>pom</packaging>
-
-  <properties>
-    <nexus.version>2.4-SNAPSHOT</nexus.version>
-    <nexus-plugin.type>nexus-plugin</nexus-plugin.type>
-
-    <it.nexus.bundle.groupId>org.sonatype.nexus</it.nexus.bundle.groupId>
-    <it.nexus.bundle.artifactId>nexus-oss-webapp</it.nexus.bundle.artifactId>
-    <it.nexus.bundle.version>${nexus.version}</it.nexus.bundle.version>
-  </properties>
 
   <repositories>
     <repository>
@@ -48,46 +39,6 @@
 
   <dependencyManagement>
     <dependencies>
-
-      <dependency>
-        <groupId>org.sonatype.nexus</groupId>
-        <artifactId>nexus-plugin-api</artifactId>
-        <version>${nexus.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.sonatype.nexus.plugins</groupId>
-        <artifactId>nexus-restlet1x-plugin</artifactId>
-        <type>${nexus-plugin.type}</type>
-        <version>${nexus.version}</version>
-      </dependency>
-
-      <!--<dependency>-->
-        <!--<groupId>org.sonatype.nexus.plugins</groupId>-->
-        <!--<artifactId>nexus-siesta-plugin</artifactId>-->
-        <!--<type>${nexus-plugin.type}</type>-->
-        <!--<version>${nexus.version}</version>-->
-      <!--</dependency>-->
-
-      <dependency>
-        <groupId>org.sonatype.nexus</groupId>
-        <artifactId>nexus-plugin-test-api</artifactId>
-        <version>${nexus.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>org.sonatype.nexus</groupId>
-        <artifactId>nexus-testsuite-support</artifactId>
-        <version>${nexus.version}</version>
-      </dependency>
-
-      <dependency>
-        <groupId>${it.nexus.bundle.groupId}</groupId>
-        <artifactId>${it.nexus.bundle.artifactId}</artifactId>
-        <type>zip</type>
-        <classifier>bundle</classifier>
-        <version>${it.nexus.bundle.version}</version>
-      </dependency>
 
       <!-- INTERNAL -->
 
@@ -117,42 +68,7 @@
   </modules>
 
   <build>
-    <pluginManagement>
-      <plugins>
-        <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>app-lifecycle-maven-plugin</artifactId>
-          <version>1.7</version>
-          <dependencies>
-            <dependency>
-              <groupId>org.sonatype.plugins</groupId>
-              <artifactId>app-lifecycle-nexus</artifactId>
-              <version>1.7</version>
-            </dependency>
-          </dependencies>
-        </plugin>
-
-        <plugin>
-          <groupId>org.sonatype.plugins</groupId>
-          <artifactId>sisu-maven-bridge-maven-plugin</artifactId>
-          <version>3.0</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-
     <plugins>
-      <!--
-      The minimum supported version for Nexus plugins is Java 6.
-      -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-compiler-plugin</artifactId>
-        <configuration>
-          <source>1.6</source>
-          <target>1.6</target>
-        </configuration>
-      </plugin>
-
       <!--
       Enables the 'nexus-plugin' packaging type, required to build Nexus plugins.
       -->
@@ -166,48 +82,6 @@
 
   <profiles>
     <!--
-    Enable integration tests to run.
-    -->
-    <profile>
-      <id>it</id>
-      <activation>
-        <property>
-          <name>it</name>
-        </property>
-      </activation>
-
-      <build>
-        <plugins>
-          <plugin>
-            <groupId>org.sonatype.plugins</groupId>
-            <artifactId>sisu-maven-bridge-maven-plugin</artifactId>
-            <version>3.0</version>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>export</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-failsafe-plugin</artifactId>
-            <executions>
-              <execution>
-                <goals>
-                  <goal>integration-test</goal>
-                  <goal>verify</goal>
-                </goals>
-              </execution>
-            </executions>
-          </plugin>
-        </plugins>
-      </build>
-    </profile>
-
-    <!--
     Building Nexus Professional plugins requires additional build configuration, disable by default.
     -->
     <profile>
@@ -215,16 +89,6 @@
       <modules>
         <module>pro-plugins</module>
       </modules>
-    </profile>
-
-    <!--
-    Workaround for issue in Intellij IDEA which has issues resolving dependencies of packaging type 'nexus-plugin'.
-    -->
-    <profile>
-      <id>idea</id>
-      <properties>
-        <nexus-plugin.type>jar</nexus-plugin.type>
-      </properties>
     </profile>
   </profiles>
 
