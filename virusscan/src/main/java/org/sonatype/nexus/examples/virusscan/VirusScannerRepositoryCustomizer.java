@@ -20,7 +20,7 @@ import org.sonatype.configuration.ConfigurationException;
 import org.sonatype.nexus.plugins.RepositoryCustomizer;
 import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
-import org.sonatype.nexus.proxy.repository.RequestProcessor;
+import org.sonatype.nexus.proxy.repository.RequestStrategy;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -32,10 +32,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class VirusScannerRepositoryCustomizer
     implements RepositoryCustomizer
 {
-    private final RequestProcessor processor;
+    private final RequestStrategy processor;
 
     @Inject
-    public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestProcessor processor) {
+    public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestStrategy processor) {
         this.processor = checkNotNull(processor);
     }
 
@@ -45,6 +45,6 @@ public class VirusScannerRepositoryCustomizer
     }
 
     public void configureRepository(final Repository repository) throws ConfigurationException {
-        repository.getRequestProcessors().put(VirusScannerRequestProcessor.ID, processor);
+        repository.getRegisteredStrategies().put(VirusScannerRequestProcessor.ID, processor);
     }
 }

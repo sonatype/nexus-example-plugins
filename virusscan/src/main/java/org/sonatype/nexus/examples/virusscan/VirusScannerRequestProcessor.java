@@ -25,7 +25,7 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
-import org.sonatype.nexus.proxy.repository.RequestProcessor;
+import org.sonatype.nexus.proxy.repository.RequestStrategy;
 import org.sonatype.sisu.goodies.eventbus.EventBus;
 
 import javax.inject.Inject;
@@ -35,14 +35,14 @@ import java.util.List;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
- * Virus scanning {@link RequestProcessor}.
+ * Virus scanning {@link org.sonatype.nexus.proxy.repository.RequestStrategy}.
  *
  * @since 1.0
  */
 @Named(VirusScannerRequestProcessor.ID)
 public class VirusScannerRequestProcessor
     extends AbstractLoggingComponent
-    implements RequestProcessor
+    implements RequestStrategy
 {
     public static final String ID = "virus-scanner";
 
@@ -87,34 +87,62 @@ public class VirusScannerRequestProcessor
         return infected;
     }
 
-    @Override
-    public boolean process(final Repository repository, final ResourceStoreRequest request, final Action action) {
-        // don't decide until have content
-        return true;
-    }
+//    @Override
+//    public boolean process(final Repository repository, final ResourceStoreRequest request, final Action action) {
+//        // don't decide until have content
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean shouldProxy(final ProxyRepository repository, final ResourceStoreRequest request) {
+//        // don't decide until have content
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean shouldRetrieve(final Repository repository, final ResourceStoreRequest request, final StorageItem item)
+//        throws IllegalOperationException, ItemNotFoundException, AccessDeniedException
+//    {
+//        // don't decide until have content
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
+//        if (item instanceof StorageFileItem) {
+//            StorageFileItem file = (StorageFileItem) item;
+//            return !hasVirus(file);
+//        }
+//        else {
+//            return true;
+//        }
+//    }
 
     @Override
-    public boolean shouldProxy(final ProxyRepository repository, final ResourceStoreRequest request) {
-        // don't decide until have content
-        return true;
-    }
-
-    @Override
-    public boolean shouldRetrieve(final Repository repository, final ResourceStoreRequest request, final StorageItem item)
-        throws IllegalOperationException, ItemNotFoundException, AccessDeniedException
+    public void onHandle( final Repository repository, final ResourceStoreRequest resourceStoreRequest,
+                          final Action action )
+        throws ItemNotFoundException, IllegalOperationException
     {
-        // don't decide until have content
-        return true;
     }
 
     @Override
-    public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
-        if (item instanceof StorageFileItem) {
-            StorageFileItem file = (StorageFileItem) item;
-            return !hasVirus(file);
+    public void onServing( final Repository repository, final ResourceStoreRequest resourceStoreRequest,
+                           final StorageItem storageItem )
+        throws ItemNotFoundException, IllegalOperationException
+    {
+        if (storageItem instanceof StorageFileItem) {
+            StorageFileItem file = (StorageFileItem) storageItem;
+            if(hasVirus(file))
+            {
+                throw new IllegalStateException( "Cannot serve an infected file!" );
+            }
         }
-        else {
-            return true;
-        }
+    }
+
+    @Override
+    public void onRemoteAccess( final ProxyRepository proxyRepository, final ResourceStoreRequest resourceStoreRequest,
+                                final StorageItem storageItem )
+        throws ItemNotFoundException, IllegalOperationException
+    {
     }
 }
