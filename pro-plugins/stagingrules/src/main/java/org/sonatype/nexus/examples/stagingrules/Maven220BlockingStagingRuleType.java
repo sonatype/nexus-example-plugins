@@ -12,18 +12,17 @@
  */
 package org.sonatype.nexus.examples.stagingrules;
 
+import com.sonatype.nexus.staging.rule.RuleType;
 import org.codehaus.plexus.component.annotations.Component;
-
-import com.sonatype.nexus.staging.rule.StagingRuleType;
 
 /**
  * {@link Maven220BlockingStagingRuleEvaluator} UI descriptor.
  *
  * @since 1.0
  */
-@Component( role = StagingRuleType.class, hint = Maven220BlockingStagingRuleType.TYPE_ID )
+@Component( role = RuleType.class, hint = Maven220BlockingStagingRuleType.TYPE_ID )
 public class Maven220BlockingStagingRuleType
-    extends StagingRuleType
+    implements RuleType
 {
     public static final String TYPE_ID = "maven220blocking-staging";
 

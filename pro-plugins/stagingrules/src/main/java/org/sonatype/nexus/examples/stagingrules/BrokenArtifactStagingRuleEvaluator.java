@@ -12,6 +12,8 @@
  */
 package org.sonatype.nexus.examples.stagingrules;
 
+import com.sonatype.nexus.staging.rule.AbstractStagingRuleWalkerProcessor;
+import com.sonatype.nexus.staging.rule.RuleResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.sonatype.nexus.proxy.item.StorageCollectionItem;
 import org.sonatype.nexus.proxy.item.StorageFileItem;
@@ -22,8 +24,6 @@ import org.sonatype.nexus.proxy.walker.WalkerFilter;
 
 import com.sonatype.nexus.staging.rule.AbstractStagingRuleEvaluator;
 import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
-import com.sonatype.nexus.staging.rule.walker.AbstractStagingRuleWalkerProcessor;
-import com.sonatype.rule.RuleResult;
 
 /**
  * Checks if an artifacts path contains the word 'broken'.

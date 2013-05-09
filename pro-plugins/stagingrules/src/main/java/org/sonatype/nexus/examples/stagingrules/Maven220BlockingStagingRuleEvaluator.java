@@ -12,6 +12,7 @@
  */
 package org.sonatype.nexus.examples.stagingrules;
 
+import com.sonatype.nexus.staging.rule.RuleResult;
 import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.component.annotations.Requirement;
 
@@ -22,8 +23,8 @@ import com.sonatype.nexus.staging.persist.model.CProfile;
 import com.sonatype.nexus.staging.persist.model.CStageRepository;
 import com.sonatype.nexus.staging.rule.StagingRule;
 import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
-import com.sonatype.rule.RuleResult;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
+import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 
 /**
  * Evaluates a staging repository to see if Maven 2.2.0 was used. Maven 2.2.0 generates incorrect signatures.
@@ -55,10 +56,10 @@ public class Maven220BlockingStagingRuleEvaluator
         {
             stagingRepo = this.getStagingRepository( stagingRepositoryId );
         }
-        catch ( ProfileMatchNotFoundException e )
+        catch ( NoSuchRepositoryException e )
         {
             // this should NEVER happen, we are running this rule against this repo
-            getLogger().error("Error finding the staing profile while executing rule.", e);
+            getLogger().error("Error finding the staging profile while executing rule.", e);
             result.addFailure( "<b>Invalid Staging Profile:</b> This staging profile could not be found." );
             return result; // guard
         }
@@ -96,27 +97,8 @@ public class Maven220BlockingStagingRuleEvaluator
     }
 
     private CStageRepository getStagingRepository( String stagingRepositoryId )
-        throws ProfileMatchNotFoundException
+        throws NoSuchRepositoryException
     {
-        CProfile stagingProfile = stagingManager.getProfileForStagingRepository( stagingRepositoryId );
-
-        for ( CStageRepository cRepo : stagingProfile.getStagedRepositories() )
-        {
-            if ( cRepo.getId().equals( stagingRepositoryId ) )
-            {
-                return cRepo;
-            }
-        }
-
-        for ( CStageRepository cRepo : stagingProfile.getStagingRepositories() )
-        {
-            if ( cRepo.getId().equals( stagingRepositoryId ) )
-            {
-                return cRepo;
-            }
-        }
-
-        return null;
-
+        return stagingManager.getStageRepositoryById( stagingRepositoryId );
     }
 }
