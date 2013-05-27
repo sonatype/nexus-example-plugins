@@ -19,16 +19,17 @@
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <groupId>org.sonatype.nexus</groupId>
-    <artifactId>nexus-plugin-parent</artifactId>
-    <version>2.5.0-01</version>
+    <groupId>org.sonatype.nexus.plugins</groupId>
+    <artifactId>plugins</artifactId>
+    <version>2.5.0-SNAPSHOT</version>
   </parent>
 
   <groupId>org.sonatype.nexus.examples</groupId>
-  <artifactId>nexus-example-plugins</artifactId>
-  <version>1.0-SNAPSHOT</version>
-
+  <artifactId>examples</artifactId>
+  <name>${project.groupId}:${project.artifactId}</name>
   <packaging>pom</packaging>
+
+  <version>1.0-SNAPSHOT</version>
 
   <repositories>
     <repository>
@@ -36,6 +37,13 @@
       <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
     </repository>
   </repositories>
+
+  <modules>
+    <module>attributes</module>
+    <module>crawling</module>
+    <module>selectionactors</module>
+    <module>virusscan</module>
+  </modules>
 
   <dependencyManagement>
     <dependencies>
@@ -45,7 +53,14 @@
       <dependency>
         <groupId>org.sonatype.nexus.examples</groupId>
         <artifactId>attributes-nexus-plugin</artifactId>
-        <type>${nexus-plugin.type}</type>
+        <type>nexus-plugin</type>
+        <version>1.0-SNAPSHOT</version>
+      </dependency>
+
+      <dependency>
+        <groupId>org.sonatype.nexus.examples</groupId>
+        <artifactId>attributes-nexus-plugin</artifactId>
+        <type>jar</type>
         <version>1.0-SNAPSHOT</version>
       </dependency>
 
@@ -59,13 +74,6 @@
 
     </dependencies>
   </dependencyManagement>
-
-  <modules>
-    <module>attributes</module>
-    <module>crawling</module>
-    <module>selectionactors</module>
-    <module>virusscan</module>
-  </modules>
 
   <build>
     <plugins>

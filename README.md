@@ -14,4 +14,11 @@
 -->
 # Nexus Example Plugins
 
-TODO
+Some examples of Nexus plugins.
+
+## Building
+
+### Requirements
+
+* Apache Maven 3.0.4+
+* Java 6+
