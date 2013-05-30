@@ -50,11 +50,14 @@
 
       <!-- IMPORTS -->
 
+      <!--
+      Import Nexus Pro plugins DM.
+      -->
       <dependency>
         <groupId>com.sonatype.nexus.plugins</groupId>
         <artifactId>nexuspro-plugins</artifactId>
         <type>pom</type>
-        <version>2.5.0-SNAPSHOT</version>
+        <version>${nexus.version}</version>
         <scope>import</scope>
       </dependency>
 
