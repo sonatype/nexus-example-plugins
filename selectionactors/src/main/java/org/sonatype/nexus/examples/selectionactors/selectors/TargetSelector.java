@@ -21,8 +21,8 @@ import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
-import org.sonatype.nexus.proxy.target.Target;
-import org.sonatype.nexus.proxy.target.TargetRegistry;
+import org.sonatype.nexus.proxy.targets.Target;
+import org.sonatype.nexus.proxy.targets.TargetRegistry;
 
 /**
  * ???
