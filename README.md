@@ -21,4 +21,4 @@ Some examples of Nexus plugins.
 ### Requirements
 
 * Apache Maven 3.0.4+
-* Java 6+
+* Java 7+
