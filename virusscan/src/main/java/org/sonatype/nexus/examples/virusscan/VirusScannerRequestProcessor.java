@@ -13,7 +13,13 @@
 
 package org.sonatype.nexus.examples.virusscan;
 
-import com.google.common.annotations.VisibleForTesting;
+import static com.google.common.base.Preconditions.checkNotNull;
+
+import java.util.List;
+
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.AccessDeniedException;
 import org.sonatype.nexus.proxy.IllegalOperationException;
@@ -25,14 +31,10 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
-import org.sonatype.nexus.proxy.repository.RequestStrategy;
+import org.sonatype.nexus.proxy.repository.RequestProcessor;
 import org.sonatype.sisu.goodies.eventbus.EventBus;
 
-import javax.inject.Inject;
-import javax.inject.Named;
-import java.util.List;
-
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.common.annotations.VisibleForTesting;
 
 /**
  * Virus scanning {@link org.sonatype.nexus.proxy.repository.RequestStrategy}.
@@ -42,7 +44,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 @Named(VirusScannerRequestProcessor.ID)
 public class VirusScannerRequestProcessor
     extends AbstractLoggingComponent
-    implements RequestStrategy
+    implements RequestProcessor
 {
     public static final String ID = "virus-scanner";
 
@@ -87,62 +89,34 @@ public class VirusScannerRequestProcessor
         return infected;
     }
 
-//    @Override
-//    public boolean process(final Repository repository, final ResourceStoreRequest request, final Action action) {
-//        // don't decide until have content
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean shouldProxy(final ProxyRepository repository, final ResourceStoreRequest request) {
-//        // don't decide until have content
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean shouldRetrieve(final Repository repository, final ResourceStoreRequest request, final StorageItem item)
-//        throws IllegalOperationException, ItemNotFoundException, AccessDeniedException
-//    {
-//        // don't decide until have content
-//        return true;
-//    }
-//
-//    @Override
-//    public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
-//        if (item instanceof StorageFileItem) {
-//            StorageFileItem file = (StorageFileItem) item;
-//            return !hasVirus(file);
-//        }
-//        else {
-//            return true;
-//        }
-//    }
-
     @Override
-    public void onHandle( final Repository repository, final ResourceStoreRequest resourceStoreRequest,
-                          final Action action )
-        throws ItemNotFoundException, IllegalOperationException
-    {
+    public boolean process(final Repository repository, final ResourceStoreRequest request, final Action action) {
+        // don't decide until have content
+        return true;
     }
 
     @Override
-    public void onServing( final Repository repository, final ResourceStoreRequest resourceStoreRequest,
-                           final StorageItem storageItem )
-        throws ItemNotFoundException, IllegalOperationException
+    public boolean shouldProxy(final ProxyRepository repository, final ResourceStoreRequest request) {
+        // don't decide until have content
+        return true;
+    }
+
+    @Override
+    public boolean shouldRetrieve(final Repository repository, final ResourceStoreRequest request, final StorageItem item)
+        throws IllegalOperationException, ItemNotFoundException, AccessDeniedException
     {
-        if (storageItem instanceof StorageFileItem) {
-            StorageFileItem file = (StorageFileItem) storageItem;
-            if(hasVirus(file))
-            {
-                throw new IllegalStateException( "Cannot serve an infected file!" );
-            }
+        // don't decide until have content
+        return true;
+    }
+
+    @Override
+    public boolean shouldCache(final ProxyRepository repository, final AbstractStorageItem item) {
+        if (item instanceof StorageFileItem) {
+            StorageFileItem file = (StorageFileItem) item;
+            return !hasVirus(file);
         }
-    }
-
-    @Override
-    public void onRemoteAccess( final ProxyRepository proxyRepository, final ResourceStoreRequest resourceStoreRequest,
-                                final StorageItem storageItem )
-        throws ItemNotFoundException, IllegalOperationException
-    {
+        else {
+            return true;
+        }
     }
 }
