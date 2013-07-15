@@ -22,3 +22,5 @@ Some examples of Nexus plugins.
 
 * Apache Maven 3.0.4+
 * Java 7+
+
+Note: The master branch builds plugins that work with the development version of Nexus.  For produciton systems check out the branch that corresponds to your version (e.g. 2.3.x)
