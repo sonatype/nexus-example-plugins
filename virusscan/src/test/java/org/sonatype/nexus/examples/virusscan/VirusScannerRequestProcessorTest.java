@@ -13,13 +13,14 @@
 
 package org.sonatype.nexus.examples.virusscan;
 
+import org.sonatype.nexus.proxy.item.StorageFileItem;
+import org.sonatype.sisu.goodies.eventbus.EventBus;
+import org.sonatype.sisu.litmus.testsupport.TestSupport;
+
 import com.google.common.collect.Lists;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
-import org.sonatype.nexus.proxy.item.StorageFileItem;
-import org.sonatype.sisu.goodies.eventbus.EventBus;
-import org.sonatype.sisu.litmus.testsupport.TestSupport;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -35,41 +36,41 @@ import static org.mockito.Mockito.when;
 public class VirusScannerRequestProcessorTest
     extends TestSupport
 {
-    private VirusScannerRequestProcessor underTest;
+  private VirusScannerRequestProcessor underTest;
 
-    @Mock
-    private EventBus eventBus;
+  @Mock
+  private EventBus eventBus;
 
-    @Mock
-    private VirusScanner scanner1;
+  @Mock
+  private VirusScanner scanner1;
 
-    @Mock
-    private VirusScanner scanner2;
+  @Mock
+  private VirusScanner scanner2;
 
-    @Before
-    public void setUp() throws Exception {
-        underTest = new VirusScannerRequestProcessor(eventBus, Lists.newArrayList(scanner1, scanner2));
-    }
+  @Before
+  public void setUp() throws Exception {
+    underTest = new VirusScannerRequestProcessor(eventBus, Lists.newArrayList(scanner1, scanner2));
+  }
 
-    @Test
-    public void allScannersConsulted() throws Exception {
-        // first scanner does not detect
-        when(scanner1.hasVirus(any(StorageFileItem.class))).thenReturn(false);
+  @Test
+  public void allScannersConsulted() throws Exception {
+    // first scanner does not detect
+    when(scanner1.hasVirus(any(StorageFileItem.class))).thenReturn(false);
 
-        // second scanner does
-        when(scanner2.hasVirus(any(StorageFileItem.class))).thenReturn(true);
+    // second scanner does
+    when(scanner2.hasVirus(any(StorageFileItem.class))).thenReturn(true);
 
-        // use a deep mock here, as the scanner needs to reach into the item to post and event
-        StorageFileItem item = mock(StorageFileItem.class, RETURNS_DEEP_STUBS);
+    // use a deep mock here, as the scanner needs to reach into the item to post and event
+    StorageFileItem item = mock(StorageFileItem.class, RETURNS_DEEP_STUBS);
 
-        // virus is detected (by one of the scanners)
-        assertThat(underTest.hasVirus(item), is(true));
+    // virus is detected (by one of the scanners)
+    assertThat(underTest.hasVirus(item), is(true));
 
-        // both scanners are called
-        verify(scanner1).hasVirus(item);
-        verify(scanner2).hasVirus(item);
+    // both scanners are called
+    verify(scanner1).hasVirus(item);
+    verify(scanner2).hasVirus(item);
 
-        // event is fired
-        verify(eventBus).post(any(InfectedItemFoundEvent.class));
-    }
+    // event is fired
+    verify(eventBus).post(any(InfectedItemFoundEvent.class));
+  }
 }

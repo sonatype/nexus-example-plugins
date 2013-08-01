@@ -13,11 +13,12 @@
 
 package org.sonatype.nexus.examples.attributes.rest;
 
-import org.junit.Test;
 import org.sonatype.nexus.examples.attributes.model.AttributeDTO;
 import org.sonatype.nexus.examples.attributes.model.AttributesDTO;
 import org.sonatype.nexus.proxy.attributes.Attributes;
 import org.sonatype.sisu.litmus.testsupport.TestSupport;
+
+import org.junit.Test;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
@@ -29,26 +30,26 @@ import static org.mockito.Mockito.verifyNoMoreInteractions;
 public class ItemAttributesResourceTest
     extends TestSupport
 {
-    @Test(expected = IllegalArgumentException.class)
-    public void applyTo_canNotOverrideSystemAttribute() throws Exception {
-        AttributesDTO attributes = new AttributesDTO();
-        attributes.getAttributes().add(new AttributeDTO(ItemAttributesResource.SYSTEM_ATTR_PREFIX + "foo", "bar"));
-        Attributes target = mock(Attributes.class);
+  @Test(expected = IllegalArgumentException.class)
+  public void applyTo_canNotOverrideSystemAttribute() throws Exception {
+    AttributesDTO attributes = new AttributesDTO();
+    attributes.getAttributes().add(new AttributeDTO(ItemAttributesResource.SYSTEM_ATTR_PREFIX + "foo", "bar"));
+    Attributes target = mock(Attributes.class);
 
-        ItemAttributesResource.applyTo(attributes, target);
+    ItemAttributesResource.applyTo(attributes, target);
 
-        verifyNoMoreInteractions(target);
-    }
+    verifyNoMoreInteractions(target);
+  }
 
-    @Test
-    public void applyTo_legalAttributeKey() throws Exception {
-        AttributesDTO attributes = new AttributesDTO();
-        attributes.getAttributes().add(new AttributeDTO("foo", "bar"));
-        Attributes target = mock(Attributes.class);
+  @Test
+  public void applyTo_legalAttributeKey() throws Exception {
+    AttributesDTO attributes = new AttributesDTO();
+    attributes.getAttributes().add(new AttributeDTO("foo", "bar"));
+    Attributes target = mock(Attributes.class);
 
-        ItemAttributesResource.applyTo(attributes, target);
+    ItemAttributesResource.applyTo(attributes, target);
 
-        verify(target).put("foo", "bar");
-        verifyNoMoreInteractions(target);
-    }
+    verify(target).put("foo", "bar");
+    verifyNoMoreInteractions(target);
+  }
 }

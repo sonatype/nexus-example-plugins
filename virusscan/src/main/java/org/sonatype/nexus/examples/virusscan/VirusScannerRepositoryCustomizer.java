@@ -32,19 +32,19 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class VirusScannerRepositoryCustomizer
     implements RepositoryCustomizer
 {
-    private final RequestStrategy processor;
+  private final RequestStrategy processor;
 
-    @Inject
-    public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestStrategy processor) {
-        this.processor = checkNotNull(processor);
-    }
+  @Inject
+  public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestStrategy processor) {
+    this.processor = checkNotNull(processor);
+  }
 
-    public boolean isHandledRepository(final Repository repository) {
-        // handle proxy reposes only
-        return repository.getRepositoryKind().isFacetAvailable(ProxyRepository.class);
-    }
+  public boolean isHandledRepository(final Repository repository) {
+    // handle proxy reposes only
+    return repository.getRepositoryKind().isFacetAvailable(ProxyRepository.class);
+  }
 
-    public void configureRepository(final Repository repository) throws ConfigurationException {
-        repository.getRegisteredStrategies().put(VirusScannerRequestProcessor.ID, processor);
-    }
+  public void configureRepository(final Repository repository) throws ConfigurationException {
+    repository.getRegisteredStrategies().put(VirusScannerRequestProcessor.ID, processor);
+  }
 }

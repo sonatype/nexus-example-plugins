@@ -10,12 +10,11 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
 import java.util.Map;
 
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.examples.selectionactors.Selector;
@@ -24,41 +23,41 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.targets.Target;
 import org.sonatype.nexus.proxy.targets.TargetRegistry;
 
+import org.codehaus.plexus.component.annotations.Component;
+import org.codehaus.plexus.component.annotations.Requirement;
+
 /**
  * ???
  *
  * @since 1.0
  */
-@Component( role = Selector.class, hint = "target" )
+@Component(role = Selector.class, hint = "target")
 public class TargetSelector
     extends AbstractWalkingSelector
 {
-    /**
-     * The key for target ID term.
-     */
-    public static final String TERM_TARGET_ID = "targetId";
+  /**
+   * The key for target ID term.
+   */
+  public static final String TERM_TARGET_ID = "targetId";
 
-    @Requirement
-    private TargetRegistry targetRegistry;
+  @Requirement
+  private TargetRegistry targetRegistry;
 
-    @Override
-    public Selection select( final Repository repository, final Map<String, String> terms )
-    {
-        final String targetId = terms.get( TERM_TARGET_ID );
-        if ( targetId == null )
-        {
-            throw new IllegalArgumentException( "Term " + TERM_TARGET_ID + " not found or is empty!" );
-        }
-
-        final Target target = targetRegistry.getRepositoryTarget( targetId );
-        if ( target == null )
-        {
-            throw new IllegalArgumentException( "Target with ID=\"" + targetId + "\" not found!" );
-        }
-
-        final SelectionCollector collector = getSelectionFactory().getCollector();
-        final TargetWalkerProcessor twp = new TargetWalkerProcessor( collector, target );
-        walk( repository, new ResourceStoreRequest( "/" ), twp );
-        return collector.done();
+  @Override
+  public Selection select(final Repository repository, final Map<String, String> terms) {
+    final String targetId = terms.get(TERM_TARGET_ID);
+    if (targetId == null) {
+      throw new IllegalArgumentException("Term " + TERM_TARGET_ID + " not found or is empty!");
     }
+
+    final Target target = targetRegistry.getRepositoryTarget(targetId);
+    if (target == null) {
+      throw new IllegalArgumentException("Target with ID=\"" + targetId + "\" not found!");
+    }
+
+    final SelectionCollector collector = getSelectionFactory().getCollector();
+    final TargetWalkerProcessor twp = new TargetWalkerProcessor(collector, target);
+    walk(repository, new ResourceStoreRequest("/"), twp);
+    return collector.done();
+  }
 }

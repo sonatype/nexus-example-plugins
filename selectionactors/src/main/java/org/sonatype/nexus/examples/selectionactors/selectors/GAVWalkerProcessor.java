@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
@@ -27,33 +28,31 @@ import org.sonatype.nexus.proxy.walker.WalkerContext;
 public class GAVWalkerProcessor
     extends AbstractWalkerProcessor
 {
-    private final MavenRepository mavenRepository;
+  private final MavenRepository mavenRepository;
 
-    private final GAVPC gavpc;
+  private final GAVPC gavpc;
 
-    private final SelectionCollector selectionCollector;
+  private final SelectionCollector selectionCollector;
 
-    public GAVWalkerProcessor( final MavenRepository mavenRepository, final GAVPC gavpc,
-                               final SelectionCollector selectionCollector )
-    {
-        this.mavenRepository = mavenRepository;
-        this.gavpc = gavpc;
-        this.selectionCollector = selectionCollector;
+  public GAVWalkerProcessor(final MavenRepository mavenRepository, final GAVPC gavpc,
+                            final SelectionCollector selectionCollector)
+  {
+    this.mavenRepository = mavenRepository;
+    this.gavpc = gavpc;
+    this.selectionCollector = selectionCollector;
+  }
+
+  @Override
+  public void processItem(final WalkerContext context, final StorageItem item)
+      throws Exception
+  {
+    final Gav gav = mavenRepository.getGavCalculator().pathToGav(item.getRepositoryItemUid().getPath());
+    if (gav != null && gavpc.matches(gav)) {
+      selectionCollector.add(item);
     }
+  }
 
-    @Override
-    public void processItem( final WalkerContext context, final StorageItem item )
-        throws Exception
-    {
-        final Gav gav = mavenRepository.getGavCalculator().pathToGav( item.getRepositoryItemUid().getPath() );
-        if ( gav != null && gavpc.matches( gav ) )
-        {
-            selectionCollector.add( item );
-        }
-    }
-
-    public SelectionCollector getSelectionCollector()
-    {
-        return selectionCollector;
-    }
+  public SelectionCollector getSelectionCollector() {
+    return selectionCollector;
+  }
 }

@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors;
 
 import java.util.Map;
@@ -23,12 +24,8 @@ import org.sonatype.nexus.proxy.repository.Repository;
  */
 public interface Selector
 {
-    /**
-     * Performs a selection against given repository with given terms.
-     * 
-     * @param repository
-     * @param terms
-     * @return
-     */
-    Selection select( Repository repository, Map<String, String> terms );
+  /**
+   * Performs a selection against given repository with given terms.
+   */
+  Selection select(Repository repository, Map<String, String> terms);
 }

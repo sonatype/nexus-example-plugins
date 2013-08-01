@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.crawling.internal;
 
 import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
@@ -31,55 +32,52 @@ import com.google.common.base.Preconditions;
 public class CollectGavsWalkerProcessor
     extends AbstractWalkerProcessor
 {
-    private final MavenRepository mavenRepository;
+  private final MavenRepository mavenRepository;
 
-    private final ArtifactDiscoveryListener artifactDiscoveryListener;
+  private final ArtifactDiscoveryListener artifactDiscoveryListener;
 
-    public CollectGavsWalkerProcessor( final MavenRepository mavenRepository,
-                                       final ArtifactDiscoveryListener artifactDiscoveryListener )
-    {
-        this.mavenRepository = Preconditions.checkNotNull( mavenRepository );
-        this.artifactDiscoveryListener = Preconditions.checkNotNull( artifactDiscoveryListener );
+  public CollectGavsWalkerProcessor(final MavenRepository mavenRepository,
+                                    final ArtifactDiscoveryListener artifactDiscoveryListener)
+  {
+    this.mavenRepository = Preconditions.checkNotNull(mavenRepository);
+    this.artifactDiscoveryListener = Preconditions.checkNotNull(artifactDiscoveryListener);
+  }
+
+  public MavenRepository getRepository() {
+    return mavenRepository;
+  }
+
+  // == WalkerProcessor
+
+  @Override
+  public void beforeWalk(final WalkerContext context)
+      throws Exception
+  {
+    super.beforeWalk(context);
+    artifactDiscoveryListener.beforeWalk(getRepository());
+  }
+
+  @Override
+  public final void processItem(final WalkerContext context, final StorageItem item)
+      throws Exception
+  {
+    if (item instanceof StorageCollectionItem) {
+      return; // a directory
+    }
+    if (item.getRepositoryItemUid().getBooleanAttributeValue(IsHiddenAttribute.class)) {
+      return; // leave out hidden stuff
     }
 
-    public MavenRepository getRepository()
-    {
-        return mavenRepository;
-    }
+    // gav might be null, if item passed in does not obey maven2 layout
+    // note: item still can be "file" or "link", but not "directory"!
+    final Gav gav = getRepository().getGavCalculator().pathToGav(item.getPath());
+    artifactDiscoveryListener.onArtifactDiscovery(getRepository(), gav, item);
+  }
 
-    // == WalkerProcessor
-
-    @Override
-    public void beforeWalk( final WalkerContext context )
-        throws Exception
-    {
-        super.beforeWalk( context );
-        artifactDiscoveryListener.beforeWalk( getRepository() );
-    }
-
-    @Override
-    public final void processItem( final WalkerContext context, final StorageItem item )
-        throws Exception
-    {
-        if ( item instanceof StorageCollectionItem )
-        {
-            return; // a directory
-        }
-        if ( item.getRepositoryItemUid().getBooleanAttributeValue( IsHiddenAttribute.class ) )
-        {
-            return; // leave out hidden stuff
-        }
-
-        // gav might be null, if item passed in does not obey maven2 layout
-        // note: item still can be "file" or "link", but not "directory"!
-        final Gav gav = getRepository().getGavCalculator().pathToGav( item.getPath() );
-        artifactDiscoveryListener.onArtifactDiscovery( getRepository(), gav, item );
-    }
-
-    public void afterWalk( final WalkerContext context )
-        throws Exception
-    {
-        super.afterWalk( context );
-        artifactDiscoveryListener.afterWalk( getRepository() );
-    }
+  public void afterWalk(final WalkerContext context)
+      throws Exception
+  {
+    super.afterWalk(context);
+    artifactDiscoveryListener.afterWalk(getRepository());
+  }
 }

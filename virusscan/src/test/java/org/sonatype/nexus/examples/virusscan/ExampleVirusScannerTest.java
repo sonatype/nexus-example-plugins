@@ -10,12 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.virusscan;
+
+import org.sonatype.nexus.proxy.item.StorageFileItem;
+import org.sonatype.sisu.litmus.testsupport.TestSupport;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.sonatype.nexus.proxy.item.StorageFileItem;
-import org.sonatype.sisu.litmus.testsupport.TestSupport;
 
 import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
@@ -28,24 +30,24 @@ import static org.mockito.Mockito.when;
 public class ExampleVirusScannerTest
     extends TestSupport
 {
-    private ExampleVirusScanner underTest;
+  private ExampleVirusScanner underTest;
 
-    @Before
-    public void setUp() throws Exception {
-        underTest = new ExampleVirusScanner();
-    }
+  @Before
+  public void setUp() throws Exception {
+    underTest = new ExampleVirusScanner();
+  }
 
-    @Test
-    public void nonInfectedItem() throws Exception {
-        StorageFileItem item = mock(StorageFileItem.class);
-        when(item.getName()).thenReturn("some-clean-item");
-        assertThat(underTest.hasVirus(item), is(false));
-    }
+  @Test
+  public void nonInfectedItem() throws Exception {
+    StorageFileItem item = mock(StorageFileItem.class);
+    when(item.getName()).thenReturn("some-clean-item");
+    assertThat(underTest.hasVirus(item), is(false));
+  }
 
-    @Test
-    public void infectedItem() throws Exception {
-        StorageFileItem item = mock(StorageFileItem.class);
-        when(item.getName()).thenReturn("some-infected-item");
-        assertThat(underTest.hasVirus(item), is(true));
-    }
+  @Test
+  public void infectedItem() throws Exception {
+    StorageFileItem item = mock(StorageFileItem.class);
+    when(item.getName()).thenReturn("some-infected-item");
+    assertThat(underTest.hasVirus(item), is(true));
+  }
 }

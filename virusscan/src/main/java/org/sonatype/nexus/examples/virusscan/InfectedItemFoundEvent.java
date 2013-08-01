@@ -27,25 +27,25 @@ import static com.google.common.base.Preconditions.checkNotNull;
 public class InfectedItemFoundEvent
     extends AbstractEvent<Repository>
 {
-    private final StorageFileItem item;
+  private final StorageFileItem item;
 
-    public InfectedItemFoundEvent(final Repository repository, final StorageFileItem item) {
-        super(repository);
-        this.item = checkNotNull(item);
-    }
+  public InfectedItemFoundEvent(final Repository repository, final StorageFileItem item) {
+    super(repository);
+    this.item = checkNotNull(item);
+  }
 
-    public Repository getRepository() {
-        return getEventSender();
-    }
+  public Repository getRepository() {
+    return getEventSender();
+  }
 
-    public StorageFileItem getItem() {
-        return item;
-    }
+  public StorageFileItem getItem() {
+    return item;
+  }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-            "item=" + item +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+        "item=" + item +
+        '}';
+  }
 }

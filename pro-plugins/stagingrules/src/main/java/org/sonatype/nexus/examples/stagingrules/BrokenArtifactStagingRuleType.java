@@ -10,9 +10,11 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.stagingrules;
 
 import com.sonatype.nexus.staging.rule.RuleType;
+
 import org.codehaus.plexus.component.annotations.Component;
 
 /**
@@ -20,25 +22,22 @@ import org.codehaus.plexus.component.annotations.Component;
  *
  * @since 1.0
  */
-@Component( role = RuleType.class, hint = BrokenArtifactStagingRuleType.TYPE_ID )
+@Component(role = RuleType.class, hint = BrokenArtifactStagingRuleType.TYPE_ID)
 public class BrokenArtifactStagingRuleType
     implements RuleType
 {
-    public static final String TYPE_ID = "brokenartifact-staging";
+  public static final String TYPE_ID = "brokenartifact-staging";
 
-    public String getDescription()
-    {
-        return "Verifies the string 'broken' is not contained in an artifacts path.";
-    }
+  public String getDescription() {
+    return "Verifies the string 'broken' is not contained in an artifacts path.";
+  }
 
-    public String getId()
-    {
-        return TYPE_ID;
-    }
+  public String getId() {
+    return TYPE_ID;
+  }
 
-    public String getName()
-    {
-        return "Staging Broken Artifact";
-    }
+  public String getName() {
+    return "Staging Broken Artifact";
+  }
 
 }

@@ -10,24 +10,25 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.inmemory;
 
-import org.codehaus.plexus.component.annotations.Component;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
+
+import org.codehaus.plexus.component.annotations.Component;
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component( role = SelectionFactory.class )
+@Component(role = SelectionFactory.class)
 public class InMemorySelectionFactory
     implements SelectionFactory
 {
-    @Override
-    public SelectionCollector getCollector()
-    {
-        return new InMemorySelectionCollector();
-    }
+  @Override
+  public SelectionCollector getCollector() {
+    return new InMemorySelectionCollector();
+  }
 }

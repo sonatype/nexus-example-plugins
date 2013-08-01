@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.crawling.internal;
 
 import java.io.IOException;
@@ -18,7 +19,6 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.codehaus.plexus.util.StringUtils;
 import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
 import org.sonatype.nexus.examples.crawling.GavCollector;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
@@ -31,6 +31,8 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 
+import org.codehaus.plexus.util.StringUtils;
+
 /**
  * ???
  *
@@ -42,42 +44,37 @@ public class GavCollectorImpl
     extends AbstractLoggingComponent
     implements GavCollector
 {
-    private final Walker walker;
+  private final Walker walker;
 
-    @Inject
-    public GavCollectorImpl( final Walker walker )
-    {
-        this.walker = walker;
+  @Inject
+  public GavCollectorImpl(final Walker walker) {
+    this.walker = walker;
+  }
+
+  @Override
+  public void collectGAVs(final ResourceStoreRequest request, final MavenRepository mavenRepository,
+                          final ArtifactDiscoveryListener listener)
+      throws IOException
+  {
+    if (StringUtils.isEmpty(request.getRequestPath())) {
+      request.setRequestPath(RepositoryItemUid.PATH_ROOT);
     }
+    // make sure we crawl local content (caches) only
+    request.setRequestLocalOnly(true);
+    final WalkerContext walkerContext = new DefaultWalkerContext(mavenRepository, request);
+    final CollectGavsWalkerProcessor collectGavsWalkerProcessor =
+        new CollectGavsWalkerProcessor(mavenRepository, listener);
+    walkerContext.getProcessors().add(collectGavsWalkerProcessor);
 
-    @Override
-    public void collectGAVs( final ResourceStoreRequest request, final MavenRepository mavenRepository,
-                             final ArtifactDiscoveryListener listener )
-        throws IOException
-    {
-        if ( StringUtils.isEmpty( request.getRequestPath() ) )
-        {
-            request.setRequestPath( RepositoryItemUid.PATH_ROOT );
-        }
-        // make sure we crawl local content (caches) only
-        request.setRequestLocalOnly( true );
-        final WalkerContext walkerContext = new DefaultWalkerContext( mavenRepository, request );
-        final CollectGavsWalkerProcessor collectGavsWalkerProcessor =
-            new CollectGavsWalkerProcessor( mavenRepository, listener );
-        walkerContext.getProcessors().add( collectGavsWalkerProcessor );
-
-        try
-        {
-            walker.walk( walkerContext );
-        }
-        catch ( WalkerException e )
-        {
-            if ( !( e.getWalkerContext().getStopCause() instanceof ItemNotFoundException ) )
-            {
-                // everything that is not ItemNotFound should be reported,
-                // otherwise just neglect it
-                throw e;
-            }
-        }
+    try {
+      walker.walk(walkerContext);
     }
+    catch (WalkerException e) {
+      if (!(e.getWalkerContext().getStopCause() instanceof ItemNotFoundException)) {
+        // everything that is not ItemNotFound should be reported,
+        // otherwise just neglect it
+        throw e;
+      }
+    }
+  }
 }

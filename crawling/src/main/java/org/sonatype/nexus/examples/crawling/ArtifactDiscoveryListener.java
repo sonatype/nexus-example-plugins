@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.crawling;
 
 import org.sonatype.nexus.proxy.item.StorageItem;
@@ -23,9 +24,9 @@ import org.sonatype.nexus.proxy.maven.gav.Gav;
  */
 public interface ArtifactDiscoveryListener
 {
-    void beforeWalk( final MavenRepository mavenRepository );
+  void beforeWalk(final MavenRepository mavenRepository);
 
-    void onArtifactDiscovery( final MavenRepository mavenRepository, final Gav gav, final StorageItem item );
+  void onArtifactDiscovery(final MavenRepository mavenRepository, final Gav gav, final StorageItem item);
 
-    void afterWalk( final MavenRepository mavenRepository );
+  void afterWalk(final MavenRepository mavenRepository);
 }

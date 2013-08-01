@@ -13,11 +13,11 @@
 
 package org.sonatype.nexus.examples.attributes.model;
 
-import com.google.common.collect.Lists;
-import com.thoughtworks.xstream.annotations.XStreamAlias;
-
 import java.util.Iterator;
 import java.util.List;
+
+import com.google.common.collect.Lists;
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 
 /**
  * Attribute collection.
@@ -28,21 +28,21 @@ import java.util.List;
 public class AttributesDTO
     implements Iterable<AttributeDTO>
 {
-    private final List<AttributeDTO> attributes = Lists.newArrayList();
+  private final List<AttributeDTO> attributes = Lists.newArrayList();
 
-    public List<AttributeDTO> getAttributes() {
-        return attributes;
-    }
+  public List<AttributeDTO> getAttributes() {
+    return attributes;
+  }
 
-    @Override
-    public Iterator<AttributeDTO> iterator() {
-        return attributes.iterator();
-    }
+  @Override
+  public Iterator<AttributeDTO> iterator() {
+    return attributes.iterator();
+  }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-            "attributes=" + attributes +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+        "attributes=" + attributes +
+        '}';
+  }
 }

@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.inmemory;
 
 import java.util.ArrayList;
@@ -27,38 +28,32 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 public class InMemorySelectionCollector
     implements SelectionCollector
 {
-    private final ArrayList<RepositoryItemUid> selectedUids;
+  private final ArrayList<RepositoryItemUid> selectedUids;
 
-    public InMemorySelectionCollector()
-    {
-        this.selectedUids = new ArrayList<RepositoryItemUid>();
-    }
+  public InMemorySelectionCollector() {
+    this.selectedUids = new ArrayList<RepositoryItemUid>();
+  }
 
-    @Override
-    public void add( final StorageItem item )
-    {
-        // duplicate? order? etc
-        final RepositoryItemUid uid = item.getRepositoryItemUid();
-        selectedUids.add( uid );
-    }
+  @Override
+  public void add(final StorageItem item) {
+    // duplicate? order? etc
+    final RepositoryItemUid uid = item.getRepositoryItemUid();
+    selectedUids.add(uid);
+  }
 
-    @Override
-    public void remove( final StorageItem item )
-    {
-        final RepositoryItemUid uid = item.getRepositoryItemUid();
-        selectedUids.remove( uid );
-    }
+  @Override
+  public void remove(final StorageItem item) {
+    final RepositoryItemUid uid = item.getRepositoryItemUid();
+    selectedUids.remove(uid);
+  }
 
-    @Override
-    public Selection done()
-    {
-        try
-        {
-            return new InMemorySelection( selectedUids );
-        }
-        finally
-        {
-            selectedUids.clear();
-        }
+  @Override
+  public Selection done() {
+    try {
+      return new InMemorySelection(selectedUids);
     }
+    finally {
+      selectedUids.clear();
+    }
+  }
 }

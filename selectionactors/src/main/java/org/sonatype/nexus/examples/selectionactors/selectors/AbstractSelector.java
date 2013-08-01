@@ -10,12 +10,14 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
-import org.codehaus.plexus.component.annotations.Requirement;
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.examples.selectionactors.Selector;
+import org.sonatype.nexus.logging.AbstractLoggingComponent;
+
+import org.codehaus.plexus.component.annotations.Requirement;
 
 /**
  * ???
@@ -26,11 +28,10 @@ public abstract class AbstractSelector
     extends AbstractLoggingComponent
     implements Selector
 {
-    @Requirement
-    private SelectionFactory selectionFactory;
+  @Requirement
+  private SelectionFactory selectionFactory;
 
-    protected SelectionFactory getSelectionFactory()
-    {
-        return selectionFactory;
-    }
+  protected SelectionFactory getSelectionFactory() {
+    return selectionFactory;
+  }
 }

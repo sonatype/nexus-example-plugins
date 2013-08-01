@@ -13,14 +13,15 @@
 
 package org.sonatype.nexus.examples.virusscan;
 
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
-import org.sonatype.nexus.proxy.item.StorageFileItem;
-
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.sonatype.nexus.logging.AbstractLoggingComponent;
+import org.sonatype.nexus.proxy.item.StorageFileItem;
+
 /**
- * Example {@link VirusScanner} implementation which simulates an infection for any item name containing the string "infected".
+ * Example {@link VirusScanner} implementation which simulates an infection for any item name containing the string
+ * "infected".
  *
  * @since 1.0
  */
@@ -30,7 +31,7 @@ public class ExampleVirusScanner
     extends AbstractLoggingComponent
     implements VirusScanner
 {
-    public boolean hasVirus(final StorageFileItem item) {
-        return item.getName().contains("infected");
-    }
+  public boolean hasVirus(final StorageFileItem item) {
+    return item.getName().contains("infected");
+  }
 }

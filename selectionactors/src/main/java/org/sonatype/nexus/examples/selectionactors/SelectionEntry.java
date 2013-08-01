@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors;
 
 import org.sonatype.nexus.proxy.repository.Repository;
@@ -21,7 +22,7 @@ import org.sonatype.nexus.proxy.repository.Repository;
  */
 public interface SelectionEntry
 {
-    Repository getRepository();
+  Repository getRepository();
 
-    String getPath();
+  String getPath();
 }

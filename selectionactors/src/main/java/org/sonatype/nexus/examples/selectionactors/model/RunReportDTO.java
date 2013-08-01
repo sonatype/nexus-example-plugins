@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.model;
 
 import com.thoughtworks.xstream.annotations.XStreamAlias;
@@ -19,71 +20,65 @@ import com.thoughtworks.xstream.annotations.XStreamAlias;
  *
  * @since 1.0
  */
-@XStreamAlias( "runReport" )
+@XStreamAlias("runReport")
 public class RunReportDTO
 {
-    private final String repositoryId;
+  private final String repositoryId;
 
-    private final String selectorId;
+  private final String selectorId;
 
-    private final int selectedCount;
+  private final int selectedCount;
 
-    private final String actorId;
+  private final String actorId;
 
-    private final int actedCount;
+  private final int actedCount;
 
-    private final boolean success;
+  private final boolean success;
 
-    public RunReportDTO(final String repositoryId, final String selectorId, final int selectedCount,
-                        final String actorId, final int actedCount, final boolean success)
-    {
-        this.repositoryId = repositoryId;
-        this.selectorId = selectorId;
-        this.selectedCount = selectedCount;
-        this.actorId = actorId;
-        this.actedCount = actedCount;
-        this.success = success;
-    }
+  public RunReportDTO(final String repositoryId, final String selectorId, final int selectedCount,
+                      final String actorId, final int actedCount, final boolean success)
+  {
+    this.repositoryId = repositoryId;
+    this.selectorId = selectorId;
+    this.selectedCount = selectedCount;
+    this.actorId = actorId;
+    this.actedCount = actedCount;
+    this.success = success;
+  }
 
-    protected String getRepositoryId()
-    {
-        return repositoryId;
-    }
+  protected String getRepositoryId() {
+    return repositoryId;
+  }
 
-    protected String getSelectorId()
-    {
-        return selectorId;
-    }
+  protected String getSelectorId() {
+    return selectorId;
+  }
 
-    protected int getSelectedCount()
-    {
-        return selectedCount;
-    }
+  protected int getSelectedCount() {
+    return selectedCount;
+  }
 
-    protected String getActorId()
-    {
-        return actorId;
-    }
+  protected String getActorId() {
+    return actorId;
+  }
 
-    protected int getActedCount()
-    {
-        return actedCount;
-    }
+  protected int getActedCount() {
+    return actedCount;
+  }
 
-    protected boolean isSuccess()
-    {
-        return success;
-    }
+  protected boolean isSuccess() {
+    return success;
+  }
 
-    @Override
-    public String toString() {
-        return getClass().getSimpleName() + "{" +
-            "repositoryId='" + repositoryId + '\'' +
-            ", selectorId='" + selectorId + '\'' +
-            ", selectedCount=" + selectedCount +
-            ", actorId='" + actorId + '\'' +
-            ", actedCount=" + actedCount +
-            ", success=" + success +
-            '}';
-    }
+  @Override
+  public String toString() {
+    return getClass().getSimpleName() + "{" +
+        "repositoryId='" + repositoryId + '\'' +
+        ", selectorId='" + selectorId + '\'' +
+        ", selectedCount=" + selectedCount +
+        ", actorId='" + actorId + '\'' +
+        ", actedCount=" + actedCount +
+        ", success=" + success +
+        '}';
+  }
 }

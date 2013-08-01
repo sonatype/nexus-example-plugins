@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.inmemory;
 
 import org.sonatype.nexus.examples.selectionactors.SelectionEntry;
@@ -26,22 +27,19 @@ import com.google.common.base.Preconditions;
 public class SimpleSelectionEntry
     implements SelectionEntry
 {
-    private final RepositoryItemUid uid;
+  private final RepositoryItemUid uid;
 
-    public SimpleSelectionEntry( final RepositoryItemUid uid )
-    {
-        this.uid = Preconditions.checkNotNull( uid );
-    }
+  public SimpleSelectionEntry(final RepositoryItemUid uid) {
+    this.uid = Preconditions.checkNotNull(uid);
+  }
 
-    @Override
-    public Repository getRepository()
-    {
-        return uid.getRepository();
-    }
+  @Override
+  public Repository getRepository() {
+    return uid.getRepository();
+  }
 
-    @Override
-    public String getPath()
-    {
-        return uid.getPath();
-    }
+  @Override
+  public String getPath() {
+    return uid.getPath();
+  }
 }

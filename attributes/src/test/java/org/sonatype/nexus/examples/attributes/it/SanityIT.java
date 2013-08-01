@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.attributes.it;
 
 import org.junit.Test;
@@ -20,12 +21,12 @@ import org.junit.Test;
 public class SanityIT
     extends AttributesITSupport
 {
-    public SanityIT(final String nexusBundleCoordinates) {
-        super(nexusBundleCoordinates);
-    }
+  public SanityIT(final String nexusBundleCoordinates) {
+    super(nexusBundleCoordinates);
+  }
 
-    @Test
-    public void pluginIsLoaded() throws Exception {
-        // TODO: Check that the plugin is actually loaded
-    }
+  @Test
+  public void pluginIsLoaded() throws Exception {
+    // TODO: Check that the plugin is actually loaded
+  }
 }

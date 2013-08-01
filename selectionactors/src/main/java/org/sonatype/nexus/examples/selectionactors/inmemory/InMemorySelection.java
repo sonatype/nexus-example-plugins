@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors.inmemory;
 
 import java.util.ArrayList;
@@ -28,33 +29,28 @@ import org.sonatype.nexus.proxy.item.RepositoryItemUid;
 public class InMemorySelection
     implements Selection
 {
-    private final ArrayList<SelectionEntry> entries;
+  private final ArrayList<SelectionEntry> entries;
 
-    public InMemorySelection( final Collection<RepositoryItemUid> entries )
-    {
-        this.entries = new ArrayList<SelectionEntry>( entries.size() );
-        for ( RepositoryItemUid uid : entries )
-        {
-            this.entries.add( new SimpleSelectionEntry( uid ) );
-        }
+  public InMemorySelection(final Collection<RepositoryItemUid> entries) {
+    this.entries = new ArrayList<SelectionEntry>(entries.size());
+    for (RepositoryItemUid uid : entries) {
+      this.entries.add(new SimpleSelectionEntry(uid));
     }
+  }
 
-    @Override
-    public Iterator<SelectionEntry> iterator()
-    {
-        return entries.iterator();
-    }
+  @Override
+  public Iterator<SelectionEntry> iterator() {
+    return entries.iterator();
+  }
 
-    @Override
-    public int size()
-    {
-        return entries.size();
-    }
+  @Override
+  public int size() {
+    return entries.size();
+  }
 
-    @Override
-    public void close()
-    {
-        // nothing particular
-        entries.clear();
-    }
+  @Override
+  public void close() {
+    // nothing particular
+    entries.clear();
+  }
 }

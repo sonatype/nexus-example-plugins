@@ -10,6 +10,7 @@
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the Apache License Version 2.0 for the specific language governing permissions and limitations there under.
  */
+
 package org.sonatype.nexus.examples.selectionactors;
 
 import org.sonatype.nexus.proxy.item.StorageItem;
@@ -21,9 +22,9 @@ import org.sonatype.nexus.proxy.item.StorageItem;
  */
 public interface SelectionCollector
 {
-    void add( StorageItem item );
+  void add(StorageItem item);
 
-    void remove( StorageItem item );
+  void remove(StorageItem item);
 
-    Selection done();
+  Selection done();
 }
