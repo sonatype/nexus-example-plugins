@@ -41,6 +41,11 @@
       <version>2.2.1</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>com.sonatype.components</groupId>
+      <artifactId>plexus-rule</artifactId>
+      <version>1.6</version>
+    </dependency>
 
     <dependency>
       <groupId>org.sonatype.nexus</groupId>
