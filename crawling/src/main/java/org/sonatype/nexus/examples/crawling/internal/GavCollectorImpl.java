@@ -19,6 +19,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
 import org.sonatype.nexus.examples.crawling.GavCollector;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
@@ -30,8 +31,6 @@ import org.sonatype.nexus.proxy.walker.DefaultWalkerContext;
 import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerException;
-
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * ???
