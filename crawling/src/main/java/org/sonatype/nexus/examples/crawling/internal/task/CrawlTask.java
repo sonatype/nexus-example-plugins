@@ -16,6 +16,9 @@ package org.sonatype.nexus.examples.crawling.internal.task;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.configuration.application.ApplicationConfiguration;
 import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
 import org.sonatype.nexus.examples.crawling.GavCollector;
@@ -24,27 +27,30 @@ import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.scheduling.AbstractNexusRepositoriesPathAwareTask;
-import org.sonatype.scheduling.SchedulerTask;
 
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
+import com.google.inject.Inject;
+
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component(role = SchedulerTask.class, hint = CrawlTaskDescriptor.ID, instantiationStrategy = "per-lookup")
+@Named(CrawlTaskDescriptor.ID)
 public class CrawlTask
     extends AbstractNexusRepositoriesPathAwareTask<Object>
 {
   private static final String ACTION = "NEXUS5030";
 
-  @Requirement
-  private ApplicationConfiguration applicationConfiguration;
+  private final ApplicationConfiguration applicationConfiguration;
 
-  @Requirement
-  private GavCollector gavCollector;
+  private final GavCollector gavCollector;
+
+  @Inject
+  public CrawlTask(final ApplicationConfiguration applicationConfiguration, GavCollector gavCollector) {
+      this.applicationConfiguration = applicationConfiguration;
+      this.gavCollector = gavCollector;
+  }
 
   @Override
   protected String getRepositoryFieldId() {
