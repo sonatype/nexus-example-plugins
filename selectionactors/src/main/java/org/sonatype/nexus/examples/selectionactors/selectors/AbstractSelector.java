@@ -13,11 +13,11 @@
 
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
+import javax.inject.Inject;
+
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
-
-import org.codehaus.plexus.component.annotations.Requirement;
 
 /**
  * ???
@@ -28,8 +28,12 @@ public abstract class AbstractSelector
     extends AbstractLoggingComponent
     implements Selector
 {
-  @Requirement
-  private SelectionFactory selectionFactory;
+  private final SelectionFactory selectionFactory;
+
+  @Inject
+  public AbstractSelector(final SelectionFactory selectionFactory) {
+      this.selectionFactory = selectionFactory;
+  }
 
   protected SelectionFactory getSelectionFactory() {
     return selectionFactory;

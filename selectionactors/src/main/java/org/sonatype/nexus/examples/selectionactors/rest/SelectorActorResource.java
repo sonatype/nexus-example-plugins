@@ -17,6 +17,10 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Actor;
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.Selector;
@@ -25,11 +29,9 @@ import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.rest.AbstractNexusPlexusResource;
 import org.sonatype.plexus.rest.resource.PathProtectionDescriptor;
-import org.sonatype.plexus.rest.resource.PlexusResource;
 
 import com.thoughtworks.xstream.XStream;
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
+
 import org.restlet.Context;
 import org.restlet.data.Form;
 import org.restlet.data.Parameter;
@@ -44,7 +46,8 @@ import org.restlet.resource.Variant;
  *
  * @since 1.0
  */
-@Component(role = PlexusResource.class, hint = "SelectorActorPlexusResource")
+@Named("SelectorActorPlexusResource")
+@Singleton
 public class SelectorActorResource
     extends AbstractNexusPlexusResource
 {
@@ -54,13 +57,14 @@ public class SelectorActorResource
 
   private static final String ACTOR_ID = "actorId";
 
-  @Requirement(role = Selector.class)
-  private Map<String, Selector> selectors;
+  private final Map<String, Selector> selectors;
 
-  @Requirement(role = Actor.class)
-  private Map<String, Actor> actors;
+  private final Map<String, Actor> actors;
 
-  public SelectorActorResource() {
+  @Inject
+  public SelectorActorResource(final Map<String, Selector> selectors, final Map<String, Actor> actors) {
+    this.selectors = selectors;
+    this.actors = actors;
     setReadable(true);
     setModifiable(false);
   }

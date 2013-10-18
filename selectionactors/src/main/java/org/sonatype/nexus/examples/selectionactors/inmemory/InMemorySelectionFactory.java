@@ -13,17 +13,19 @@
 
 package org.sonatype.nexus.examples.selectionactors.inmemory;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
-
-import org.codehaus.plexus.component.annotations.Component;
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component(role = SelectionFactory.class)
+@Named
+@Singleton
 public class InMemorySelectionFactory
     implements SelectionFactory
 {

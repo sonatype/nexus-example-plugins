@@ -16,6 +16,9 @@ package org.sonatype.nexus.examples.selectionactors.actors;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Actor;
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionEntry;
@@ -24,15 +27,14 @@ import org.sonatype.nexus.proxy.ItemNotFoundException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.item.StorageItem;
 
-import org.codehaus.plexus.component.annotations.Component;
-
 /**
  * A simple "tag" actor, that "tags" the selected items by setting the supplied attribute value for given attribute
  * key.
  *
  * @since 1.0
  */
-@Component(role = Actor.class, hint = "tag")
+@Named("tag")
+@Singleton
 public class TagActor
     implements Actor
 {

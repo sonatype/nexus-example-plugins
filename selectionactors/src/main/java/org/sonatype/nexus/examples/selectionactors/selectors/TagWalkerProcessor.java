@@ -13,12 +13,11 @@
 
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
+import org.apache.commons.lang.StringUtils;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
 import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.walker.AbstractWalkerProcessor;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
-
-import org.codehaus.plexus.util.StringUtils;
 
 /**
  * ???

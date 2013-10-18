@@ -15,33 +15,40 @@ package org.sonatype.nexus.examples.selectionactors.selectors;
 
 import java.util.Map;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
-import org.sonatype.nexus.examples.selectionactors.Selector;
+import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.targets.Target;
 import org.sonatype.nexus.proxy.targets.TargetRegistry;
-
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
+import org.sonatype.nexus.proxy.walker.Walker;
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component(role = Selector.class, hint = "target")
+@Named("target")
+@Singleton
 public class TargetSelector
     extends AbstractWalkingSelector
 {
-  /**
+/**
    * The key for target ID term.
    */
   public static final String TERM_TARGET_ID = "targetId";
 
-  @Requirement
-  private TargetRegistry targetRegistry;
+  private final TargetRegistry targetRegistry;
+
+  public TargetSelector(final SelectionFactory selectionFactory, final Walker walker,
+          final TargetRegistry targetRegistry) {
+      super(selectionFactory, walker);
+      this.targetRegistry = targetRegistry;
+  }
 
   @Override
   public Selection select(final Repository repository, final Map<String, String> terms) {
