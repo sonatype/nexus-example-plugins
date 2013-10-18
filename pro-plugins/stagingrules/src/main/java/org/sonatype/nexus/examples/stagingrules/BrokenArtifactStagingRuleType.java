@@ -13,16 +13,18 @@
 
 package org.sonatype.nexus.examples.stagingrules;
 
-import com.sonatype.nexus.staging.rule.RuleType;
+import javax.inject.Singleton;
+import javax.inject.Named;
 
-import org.codehaus.plexus.component.annotations.Component;
+import com.sonatype.nexus.staging.rule.RuleType;
 
 /**
  * {@link BrokenArtifactStagingRuleEvaluator} UI descriptor.
  *
  * @since 1.0
  */
-@Component(role = RuleType.class, hint = BrokenArtifactStagingRuleType.TYPE_ID)
+@Named(BrokenArtifactStagingRuleType.TYPE_ID)
+@Singleton
 public class BrokenArtifactStagingRuleType
     implements RuleType
 {

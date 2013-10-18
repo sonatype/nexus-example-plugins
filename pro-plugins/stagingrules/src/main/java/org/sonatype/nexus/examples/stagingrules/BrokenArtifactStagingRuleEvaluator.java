@@ -13,10 +13,12 @@
 
 package org.sonatype.nexus.examples.stagingrules;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import com.sonatype.nexus.staging.rule.AbstractStagingRuleEvaluator;
 import com.sonatype.nexus.staging.rule.AbstractStagingRuleWalkerProcessor;
 import com.sonatype.nexus.staging.rule.RuleResult;
-import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
 
 import org.sonatype.nexus.proxy.item.StorageCollectionItem;
 import org.sonatype.nexus.proxy.item.StorageFileItem;
@@ -25,14 +27,13 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerFilter;
 
-import org.codehaus.plexus.component.annotations.Component;
-
 /**
  * Checks if an artifacts path contains the word 'broken'.
  *
  * @since 1.0
  */
-@Component(role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID)
+@Named(BrokenArtifactStagingRuleType.TYPE_ID)
+@Singleton
 public class BrokenArtifactStagingRuleEvaluator
     extends AbstractStagingRuleEvaluator
 {
