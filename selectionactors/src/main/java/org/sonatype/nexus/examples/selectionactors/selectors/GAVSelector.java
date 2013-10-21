@@ -15,25 +15,36 @@ package org.sonatype.nexus.examples.selectionactors.selectors;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
-import org.sonatype.nexus.examples.selectionactors.Selector;
+import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.utils.RepositoryStringUtils;
+import org.sonatype.nexus.proxy.walker.Walker;
 
-import org.codehaus.plexus.component.annotations.Component;
+import com.google.common.base.Preconditions;
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component(role = Selector.class, hint = "gav")
+@Named("gav")
+@Singleton
 public class GAVSelector
     extends AbstractWalkingSelector
 {
+  @Inject
+  public GAVSelector(final SelectionFactory selectionFactory, final Walker walker) {
+        super(Preconditions.checkNotNull(selectionFactory), Preconditions.checkNotNull(walker));
+  }
+
   @Override
   public Selection select(final Repository repository, final Map<String, String> terms) {
     final MavenRepository mavenRepository = repository.adaptToFacet(MavenRepository.class);

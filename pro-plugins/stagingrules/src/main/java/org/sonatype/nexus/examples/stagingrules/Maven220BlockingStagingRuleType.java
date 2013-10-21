@@ -13,16 +13,18 @@
 
 package org.sonatype.nexus.examples.stagingrules;
 
-import com.sonatype.nexus.staging.rule.RuleType;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
-import org.codehaus.plexus.component.annotations.Component;
+import com.sonatype.nexus.staging.rule.RuleType;
 
 /**
  * {@link Maven220BlockingStagingRuleEvaluator} UI descriptor.
  *
  * @since 1.0
  */
-@Component(role = RuleType.class, hint = Maven220BlockingStagingRuleType.TYPE_ID)
+@Named(Maven220BlockingStagingRuleType.TYPE_ID)
+@Singleton
 public class Maven220BlockingStagingRuleType
     implements RuleType
 {
@@ -39,5 +41,4 @@ public class Maven220BlockingStagingRuleType
   public String getName() {
     return "Staging Maven 2.2.0 Blocker";
   }
-
 }

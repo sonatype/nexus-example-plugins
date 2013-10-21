@@ -16,20 +16,23 @@ package org.sonatype.nexus.examples.crawling.internal.task;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import org.sonatype.inject.Description;
 import org.sonatype.nexus.formfields.FormField;
 import org.sonatype.nexus.formfields.RepoOrGroupComboFormField;
 import org.sonatype.nexus.formfields.StringTextFormField;
 import org.sonatype.nexus.tasks.descriptors.AbstractScheduledTaskDescriptor;
-import org.sonatype.nexus.tasks.descriptors.ScheduledTaskDescriptor;
-
-import org.codehaus.plexus.component.annotations.Component;
 
 /**
  * {@link CrawlTask} UI descriptor.
  *
  * @since 1.0
  */
-@Component(role = ScheduledTaskDescriptor.class, hint = "CrawlTask", description = "Crawling Task")
+@Named
+@Singleton
+@Description("Crawling Task")
 public class CrawlTaskDescriptor
     extends AbstractScheduledTaskDescriptor
 {

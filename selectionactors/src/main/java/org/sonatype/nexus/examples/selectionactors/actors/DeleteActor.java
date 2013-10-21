@@ -16,6 +16,9 @@ package org.sonatype.nexus.examples.selectionactors.actors;
 import java.io.IOException;
 import java.util.Map;
 
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Actor;
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionEntry;
@@ -24,14 +27,13 @@ import org.sonatype.nexus.proxy.ItemNotFoundException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.storage.UnsupportedStorageOperationException;
 
-import org.codehaus.plexus.component.annotations.Component;
-
 /**
  * A simple "delete" actor, that deletes all the items in selection.
  *
  * @since 1.0
  */
-@Component(role = Actor.class, hint = "delete")
+@Named("delete")
+@Singleton
 public class DeleteActor
     implements Actor
 {

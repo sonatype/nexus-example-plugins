@@ -22,7 +22,7 @@ import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestStrategy;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.common.base.Preconditions;
 
 /**
  * Configures the {@link VirusScannerRepositoryCustomizer} on all proxy repositories.
@@ -36,7 +36,7 @@ public class VirusScannerRepositoryCustomizer
 
   @Inject
   public VirusScannerRepositoryCustomizer(final @Named(VirusScannerRequestProcessor.ID) RequestStrategy processor) {
-    this.processor = checkNotNull(processor);
+    this.processor = Preconditions.checkNotNull(processor);
   }
 
   public boolean isHandledRepository(final Repository repository) {

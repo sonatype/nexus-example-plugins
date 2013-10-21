@@ -15,24 +15,30 @@ package org.sonatype.nexus.examples.selectionactors.selectors;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
 import org.sonatype.nexus.examples.selectionactors.Selection;
 import org.sonatype.nexus.examples.selectionactors.SelectionCollector;
-import org.sonatype.nexus.examples.selectionactors.Selector;
+import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
+import org.sonatype.nexus.proxy.walker.Walker;
 
-import org.codehaus.plexus.component.annotations.Component;
+import com.google.common.base.Preconditions;
 
 /**
  * ???
  *
  * @since 1.0
  */
-@Component(role = Selector.class, hint = "target")
+@Named("target")
+@Singleton
 public class TagSelector
     extends AbstractWalkingSelector
 {
-  /**
+/**
    * The key for tag key term (mandatory).
    */
   public static final String TERM_ATTRIBUTE_KEY = "attributeKey";
@@ -42,6 +48,12 @@ public class TagSelector
    * presence of {@link #TERM_ATTRIBUTE_KEY}.
    */
   public static final String TERM_ATTRIBUTE_VALUE = "attributeValue";
+
+  @Inject
+  public TagSelector(final SelectionFactory selectionFactory, final Walker walker) {
+      super(Preconditions.checkNotNull(selectionFactory), Preconditions.checkNotNull(walker));
+  }
+
 
   @Override
   public Selection select(Repository repository, Map<String, String> terms) {

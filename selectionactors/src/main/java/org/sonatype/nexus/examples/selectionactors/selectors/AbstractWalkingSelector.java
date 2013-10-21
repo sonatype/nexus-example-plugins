@@ -13,6 +13,9 @@
 
 package org.sonatype.nexus.examples.selectionactors.selectors;
 
+import javax.inject.Inject;
+
+import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.proxy.ItemNotFoundException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
@@ -21,7 +24,7 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 import org.sonatype.nexus.proxy.walker.WalkerProcessor;
 
-import org.codehaus.plexus.component.annotations.Requirement;
+import com.google.common.base.Preconditions;
 
 /**
  * ???
@@ -31,8 +34,13 @@ import org.codehaus.plexus.component.annotations.Requirement;
 public abstract class AbstractWalkingSelector
     extends AbstractSelector
 {
-  @Requirement
   private Walker walker;
+
+  @Inject
+  public AbstractWalkingSelector(final SelectionFactory selectionFactory, final Walker walker) {
+      super(Preconditions.checkNotNull(selectionFactory));
+      this.walker = Preconditions.checkNotNull(walker);
+  }
 
   protected Walker getWalker() {
     return walker;

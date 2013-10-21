@@ -13,6 +13,11 @@
 
 package org.sonatype.nexus.examples.stagingrules;
 
+import javax.inject.Inject;
+import javax.inject.Named;
+import javax.inject.Singleton;
+
+import com.google.common.base.Preconditions;
 import com.sonatype.nexus.staging.StagingManager;
 import com.sonatype.nexus.staging.persist.model.CCondition;
 import com.sonatype.nexus.staging.persist.model.CStageRepository;
@@ -23,27 +28,29 @@ import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 
-import org.codehaus.plexus.component.annotations.Component;
-import org.codehaus.plexus.component.annotations.Requirement;
-
 /**
  * Evaluates a staging repository to see if Maven 2.2.0 was used. Maven 2.2.0 generates incorrect signatures.
  *
  * @since 1.0
  */
-@Component(role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID)
+@Named(BrokenArtifactStagingRuleType.TYPE_ID)
+@Singleton
 public class Maven220BlockingStagingRuleEvaluator
     extends AbstractLoggingComponent
     implements StagingRuleEvaluator
 {
-  @Requirement
-  private StagingManager stagingManager;
+  private final StagingManager stagingManager;
 
   /**
    * The actual user-agent would be something like: Apache-Maven/2.2 (Java 1.6.0_16; Linux 2.6.26-2-amd64)
    * maven-artifact/2.2.0
    */
   private static String maven220UserAgentPart = "maven-artifact/2.2.0";
+
+  @Inject
+  public Maven220BlockingStagingRuleEvaluator(final StagingManager stagingManager) {
+      this.stagingManager = Preconditions.checkNotNull(stagingManager);
+  }
 
   public RuleResult evaluate(StagingRule stagingRule) {
     RuleResult result = new RuleResult(stagingRule);
