@@ -30,6 +30,7 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.rest.AbstractNexusPlexusResource;
 import org.sonatype.plexus.rest.resource.PathProtectionDescriptor;
 
+import com.google.common.base.Preconditions;
 import com.thoughtworks.xstream.XStream;
 
 import org.restlet.Context;
@@ -46,7 +47,7 @@ import org.restlet.resource.Variant;
  *
  * @since 1.0
  */
-@Named("SelectorActorPlexusResource")
+@Named
 @Singleton
 public class SelectorActorResource
     extends AbstractNexusPlexusResource
@@ -63,8 +64,8 @@ public class SelectorActorResource
 
   @Inject
   public SelectorActorResource(final Map<String, Selector> selectors, final Map<String, Actor> actors) {
-    this.selectors = selectors;
-    this.actors = actors;
+    this.selectors = Preconditions.checkNotNull(selectors);
+    this.actors = Preconditions.checkNotNull(actors);
     setReadable(true);
     setModifiable(false);
   }

@@ -19,6 +19,8 @@ import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.examples.selectionactors.Selector;
 import org.sonatype.nexus.logging.AbstractLoggingComponent;
 
+import com.google.common.base.Preconditions;
+
 /**
  * ???
  *
@@ -32,7 +34,7 @@ public abstract class AbstractSelector
 
   @Inject
   public AbstractSelector(final SelectionFactory selectionFactory) {
-      this.selectionFactory = selectionFactory;
+      this.selectionFactory = Preconditions.checkNotNull(selectionFactory);
   }
 
   protected SelectionFactory getSelectionFactory() {

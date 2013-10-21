@@ -24,6 +24,8 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 import org.sonatype.nexus.proxy.walker.WalkerProcessor;
 
+import com.google.common.base.Preconditions;
+
 /**
  * ???
  *
@@ -35,9 +37,9 @@ public abstract class AbstractWalkingSelector
   private Walker walker;
 
   @Inject
-  public AbstractWalkingSelector(SelectionFactory selectionFactory, final Walker walker) {
-      super(selectionFactory);
-      this.walker = walker;
+  public AbstractWalkingSelector(final SelectionFactory selectionFactory, final Walker walker) {
+      super(Preconditions.checkNotNull(selectionFactory));
+      this.walker = Preconditions.checkNotNull(walker);
   }
 
   protected Walker getWalker() {

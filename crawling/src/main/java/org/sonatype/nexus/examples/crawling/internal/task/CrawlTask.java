@@ -16,8 +16,8 @@ package org.sonatype.nexus.examples.crawling.internal.task;
 import java.io.File;
 import java.io.IOException;
 
+import javax.inject.Inject;
 import javax.inject.Named;
-import javax.inject.Singleton;
 
 import org.sonatype.nexus.configuration.application.ApplicationConfiguration;
 import org.sonatype.nexus.examples.crawling.ArtifactDiscoveryListener;
@@ -28,8 +28,7 @@ import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.maven.MavenRepository;
 import org.sonatype.nexus.scheduling.AbstractNexusRepositoriesPathAwareTask;
 
-import com.google.inject.Inject;
-
+import com.google.common.base.Preconditions;
 
 /**
  * ???
@@ -47,9 +46,9 @@ public class CrawlTask
   private final GavCollector gavCollector;
 
   @Inject
-  public CrawlTask(final ApplicationConfiguration applicationConfiguration, GavCollector gavCollector) {
-      this.applicationConfiguration = applicationConfiguration;
-      this.gavCollector = gavCollector;
+  public CrawlTask(final ApplicationConfiguration applicationConfiguration, final GavCollector gavCollector) {
+      this.applicationConfiguration = Preconditions.checkNotNull(applicationConfiguration);
+      this.gavCollector = Preconditions.checkNotNull(gavCollector);
   }
 
   @Override

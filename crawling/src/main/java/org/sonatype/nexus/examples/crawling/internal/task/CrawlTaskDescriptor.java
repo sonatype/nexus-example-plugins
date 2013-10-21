@@ -30,7 +30,7 @@ import org.sonatype.nexus.tasks.descriptors.AbstractScheduledTaskDescriptor;
  *
  * @since 1.0
  */
-@Named("CrawlTask")
+@Named
 @Singleton
 @Description("Crawling Task")
 public class CrawlTaskDescriptor

@@ -32,7 +32,7 @@ import org.sonatype.sisu.goodies.eventbus.EventBus;
 
 import com.google.common.annotations.VisibleForTesting;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.google.common.base.Preconditions;
 
 /**
  * Virus scanning {@link org.sonatype.nexus.proxy.repository.RequestStrategy}.
@@ -54,8 +54,8 @@ public class VirusScannerRequestProcessor
   public VirusScannerRequestProcessor(final EventBus eventBus,
                                       final List<VirusScanner> scanners)
   {
-    this.eventBus = checkNotNull(eventBus);
-    this.scanners = checkNotNull(scanners);
+    this.eventBus = Preconditions.checkNotNull(eventBus);
+    this.scanners = Preconditions.checkNotNull(scanners);
 
     if (scanners.isEmpty()) {
       getLogger().warn("No VirusScanner components detected");

@@ -26,6 +26,8 @@ import org.sonatype.nexus.proxy.ResourceStoreRequest;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.walker.Walker;
 
+import com.google.common.base.Preconditions;
+
 /**
  * ???
  *
@@ -49,7 +51,7 @@ public class TagSelector
 
   @Inject
   public TagSelector(final SelectionFactory selectionFactory, final Walker walker) {
-      super(selectionFactory, walker);
+      super(Preconditions.checkNotNull(selectionFactory), Preconditions.checkNotNull(walker));
   }
 
 

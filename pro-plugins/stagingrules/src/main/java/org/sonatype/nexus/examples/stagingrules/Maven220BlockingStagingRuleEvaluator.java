@@ -17,6 +17,7 @@ import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
+import com.google.common.base.Preconditions;
 import com.sonatype.nexus.staging.StagingManager;
 import com.sonatype.nexus.staging.persist.model.CCondition;
 import com.sonatype.nexus.staging.persist.model.CStageRepository;
@@ -48,7 +49,7 @@ public class Maven220BlockingStagingRuleEvaluator
 
   @Inject
   public Maven220BlockingStagingRuleEvaluator(final StagingManager stagingManager) {
-      this.stagingManager = stagingManager;
+      this.stagingManager = Preconditions.checkNotNull(stagingManager);
   }
 
   public RuleResult evaluate(StagingRule stagingRule) {

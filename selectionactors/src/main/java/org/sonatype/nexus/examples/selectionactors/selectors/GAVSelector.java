@@ -28,6 +28,8 @@ import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.utils.RepositoryStringUtils;
 import org.sonatype.nexus.proxy.walker.Walker;
 
+import com.google.common.base.Preconditions;
+
 /**
  * ???
  *
@@ -40,7 +42,7 @@ public class GAVSelector
 {
   @Inject
   public GAVSelector(final SelectionFactory selectionFactory, final Walker walker) {
-        super(selectionFactory, walker);
+        super(Preconditions.checkNotNull(selectionFactory), Preconditions.checkNotNull(walker));
   }
 
   @Override

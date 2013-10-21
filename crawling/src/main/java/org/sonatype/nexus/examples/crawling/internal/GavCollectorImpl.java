@@ -32,6 +32,8 @@ import org.sonatype.nexus.proxy.walker.Walker;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerException;
 
+import com.google.common.base.Preconditions;
+
 /**
  * ???
  *
@@ -47,7 +49,7 @@ public class GavCollectorImpl
 
   @Inject
   public GavCollectorImpl(final Walker walker) {
-    this.walker = walker;
+    this.walker = Preconditions.checkNotNull(walker);
   }
 
   @Override
