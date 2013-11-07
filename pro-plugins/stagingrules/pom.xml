@@ -45,6 +45,8 @@
       <groupId>com.sonatype.components</groupId>
       <artifactId>plexus-rule</artifactId>
       <version>1.6</version>
+      <type>${nexus-plugin.type}</type>
+      <scope>provided</scope>
     </dependency>
 
     <dependency>
