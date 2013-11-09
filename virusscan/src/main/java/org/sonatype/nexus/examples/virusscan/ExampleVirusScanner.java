@@ -16,8 +16,8 @@ package org.sonatype.nexus.examples.virusscan;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.item.StorageFileItem;
+import org.sonatype.sisu.goodies.common.ComponentSupport;
 
 /**
  * Example {@link VirusScanner} implementation which simulates an infection for any item name containing the string
@@ -28,7 +28,7 @@ import org.sonatype.nexus.proxy.item.StorageFileItem;
 @Named
 @Singleton
 public class ExampleVirusScanner
-    extends AbstractLoggingComponent
+    extends ComponentSupport
     implements VirusScanner
 {
   public boolean hasVirus(final StorageFileItem item) {

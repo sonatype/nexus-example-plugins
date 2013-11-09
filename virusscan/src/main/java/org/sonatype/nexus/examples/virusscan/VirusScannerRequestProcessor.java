@@ -18,7 +18,6 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Named;
 
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.IllegalOperationException;
 import org.sonatype.nexus.proxy.ItemNotFoundException;
 import org.sonatype.nexus.proxy.ResourceStoreRequest;
@@ -28,10 +27,10 @@ import org.sonatype.nexus.proxy.item.StorageItem;
 import org.sonatype.nexus.proxy.repository.ProxyRepository;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.repository.RequestStrategy;
+import org.sonatype.sisu.goodies.common.ComponentSupport;
 import org.sonatype.sisu.goodies.eventbus.EventBus;
 
 import com.google.common.annotations.VisibleForTesting;
-
 import com.google.common.base.Preconditions;
 
 /**
@@ -41,7 +40,7 @@ import com.google.common.base.Preconditions;
  */
 @Named(VirusScannerRequestProcessor.ID)
 public class VirusScannerRequestProcessor
-    extends AbstractLoggingComponent
+    extends ComponentSupport
     implements RequestStrategy
 {
   public static final String ID = "virus-scanner";
@@ -58,19 +57,19 @@ public class VirusScannerRequestProcessor
     this.scanners = Preconditions.checkNotNull(scanners);
 
     if (scanners.isEmpty()) {
-      getLogger().warn("No VirusScanner components detected");
+      log.warn("No VirusScanner components detected");
     }
-    else if (getLogger().isDebugEnabled()) {
-      getLogger().debug("Virus scanners:");
+    else if (log.isDebugEnabled()) {
+      log.debug("Virus scanners:");
       for (VirusScanner scanner : scanners) {
-        getLogger().debug("  {}", scanner);
+        log.debug("  {}", scanner);
       }
     }
   }
 
   @VisibleForTesting
   boolean hasVirus(final StorageFileItem item) {
-    getLogger().debug("Scanning item for viruses: {}", item.getPath());
+    log.debug("Scanning item for viruses: {}", item.getPath());
 
     boolean infected = false;
     for (VirusScanner scanner : scanners) {
@@ -81,7 +80,7 @@ public class VirusScannerRequestProcessor
     }
 
     if (infected) {
-      getLogger().warn("Infection detected in item: {}", item.getPath());
+      log.warn("Infection detected in item: {}", item.getPath());
     }
 
     return infected;
