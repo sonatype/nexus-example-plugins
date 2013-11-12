@@ -17,7 +17,7 @@ import javax.inject.Inject;
 
 import org.sonatype.nexus.examples.selectionactors.SelectionFactory;
 import org.sonatype.nexus.examples.selectionactors.Selector;
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
+import org.sonatype.sisu.goodies.common.ComponentSupport;
 
 import com.google.common.base.Preconditions;
 
@@ -27,7 +27,7 @@ import com.google.common.base.Preconditions;
  * @since 1.0
  */
 public abstract class AbstractSelector
-    extends AbstractLoggingComponent
+    extends ComponentSupport
     implements Selector
 {
   private final SelectionFactory selectionFactory;

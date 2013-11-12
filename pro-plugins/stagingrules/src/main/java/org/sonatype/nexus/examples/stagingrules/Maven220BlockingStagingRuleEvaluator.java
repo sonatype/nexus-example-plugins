@@ -36,7 +36,7 @@ import org.sonatype.nexus.proxy.NoSuchRepositoryException;
 @Named(BrokenArtifactStagingRuleType.TYPE_ID)
 @Singleton
 public class Maven220BlockingStagingRuleEvaluator
-    extends AbstractLoggingComponent
+    extends ComponentSupport
     implements StagingRuleEvaluator
 {
   private final StagingManager stagingManager;
