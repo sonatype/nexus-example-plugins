@@ -25,8 +25,8 @@ import com.sonatype.nexus.staging.rule.RuleResult;
 import com.sonatype.nexus.staging.rule.StagingRule;
 import com.sonatype.nexus.staging.rule.StagingRuleEvaluator;
 
-import org.sonatype.nexus.logging.AbstractLoggingComponent;
 import org.sonatype.nexus.proxy.NoSuchRepositoryException;
+import org.sonatype.sisu.goodies.common.ComponentSupport;
 
 /**
  * Evaluates a staging repository to see if Maven 2.2.0 was used. Maven 2.2.0 generates incorrect signatures.
@@ -63,7 +63,7 @@ public class Maven220BlockingStagingRuleEvaluator
     }
     catch (NoSuchRepositoryException e) {
       // this should NEVER happen, we are running this rule against this repo
-      getLogger().error("Error finding the staging profile while executing rule.", e);
+      log.error("Error finding the staging profile while executing rule.", e);
       result.addFailure("<b>Invalid Staging Profile:</b> This staging profile could not be found.");
       return result; // guard
     }
