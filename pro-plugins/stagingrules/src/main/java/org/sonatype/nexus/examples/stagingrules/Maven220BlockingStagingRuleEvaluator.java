@@ -31,7 +31,7 @@ import org.codehaus.plexus.component.annotations.Requirement;
  *
  * @since 1.0
  */
-@Component(role = StagingRuleEvaluator.class, hint = BrokenArtifactStagingRuleType.TYPE_ID)
+@Component(role = StagingRuleEvaluator.class, hint = Maven220BlockingStagingRuleType.TYPE_ID)
 public class Maven220BlockingStagingRuleEvaluator
     extends AbstractLoggingComponent
     implements StagingRuleEvaluator
