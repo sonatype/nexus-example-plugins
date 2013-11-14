@@ -48,16 +48,6 @@
   <dependencyManagement>
     <dependencies>
 
-      <!-- IMPORTS -->
-
-      <dependency>
-        <groupId>com.sonatype.nexus.plugins</groupId>
-        <artifactId>nexuspro-plugins</artifactId>
-        <type>pom</type>
-        <version>2.5.0-SNAPSHOT</version>
-        <scope>import</scope>
-      </dependency>
-
       <dependency>
         <groupId>${it.nexus.bundle.groupId}</groupId>
         <artifactId>${it.nexus.bundle.artifactId}</artifactId>

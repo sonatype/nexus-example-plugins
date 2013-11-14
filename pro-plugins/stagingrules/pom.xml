@@ -36,9 +36,10 @@
     </dependency>
 
     <dependency>
-      <groupId>com.sonatype.nexus.plugins</groupId>
+      <groupId>com.sonatype.nexus.staging</groupId>
       <artifactId>nexus-staging-plugin</artifactId>
       <type>${nexus-plugin.type}</type>
+      <version>2.3.4.1</version>
       <scope>provided</scope>
     </dependency>
 
