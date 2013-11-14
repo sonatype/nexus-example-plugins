@@ -33,7 +33,7 @@ import org.sonatype.sisu.goodies.common.ComponentSupport;
  *
  * @since 1.0
  */
-@Named(BrokenArtifactStagingRuleType.TYPE_ID)
+@Named(Maven220BlockingStagingRuleType.TYPE_ID)
 @Singleton
 public class Maven220BlockingStagingRuleEvaluator
     extends ComponentSupport
