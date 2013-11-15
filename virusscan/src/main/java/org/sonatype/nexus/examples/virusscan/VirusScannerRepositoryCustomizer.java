@@ -39,11 +39,13 @@ public class VirusScannerRepositoryCustomizer
     this.processor = Preconditions.checkNotNull(processor);
   }
 
+  @Override
   public boolean isHandledRepository(final Repository repository) {
     // handle proxy reposes only
     return repository.getRepositoryKind().isFacetAvailable(ProxyRepository.class);
   }
 
+  @Override
   public void configureRepository(final Repository repository) throws ConfigurationException {
     repository.getRegisteredStrategies().put(VirusScannerRequestProcessor.ID, processor);
   }
