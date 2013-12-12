@@ -29,6 +29,7 @@ import com.google.common.base.Preconditions;
  *
  * @since 1.0
  */
+@Named(VirusScannerRequestProcessor.ID)
 public class VirusScannerRepositoryCustomizer
     implements RepositoryCustomizer
 {
@@ -47,6 +48,6 @@ public class VirusScannerRepositoryCustomizer
 
   @Override
   public void configureRepository(final Repository repository) throws ConfigurationException {
-    repository.getRegisteredStrategies().put(VirusScannerRequestProcessor.ID, processor);
+    repository.registerRequestStrategy(VirusScannerRequestProcessor.ID, processor);
   }
 }
