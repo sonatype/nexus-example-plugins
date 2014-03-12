@@ -24,7 +24,6 @@ import org.sonatype.nexus.apachehttpclient.Hc4Provider;
 import org.sonatype.nexus.configuration.application.ApplicationConfiguration;
 import org.sonatype.nexus.proxy.repository.UsernamePasswordRemoteAuthenticationSettings;
 import org.sonatype.nexus.proxy.storage.remote.DefaultRemoteStorageContext;
-import org.sonatype.nexus.examples.url.config.UrlRealmConfiguration;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
@@ -63,18 +62,22 @@ public class UrlRealm
 
   private final ApplicationConfiguration applicationConfiguration;
 
-  private final UrlRealmConfiguration urlRealmConfiguration;
-
   private final Hc4Provider hc4Provider;
+
+  private final String baseUrl;
+
+  private final String defaultRole;
 
   @Inject
   public UrlRealm(final ApplicationConfiguration applicationConfiguration,
-                  final UrlRealmConfiguration urlRealmConfiguration,
-                  final Hc4Provider hc4Provider)
+                  final Hc4Provider hc4Provider,
+                  @Named("${nexus.urlrealm.baseUrl}") final String baseUrl,
+                  @Named("${nexus.urlrealm.defaultRole}") final String defaultRole)
   {
     this.applicationConfiguration = checkNotNull(applicationConfiguration);
-    this.urlRealmConfiguration = checkNotNull(urlRealmConfiguration);
     this.hc4Provider = checkNotNull(hc4Provider);
+    this.baseUrl = checkNotNull(baseUrl);
+    this.defaultRole = checkNotNull(defaultRole);
     setName(NAME);
     setAuthenticationCachingEnabled(true);
     setAuthorizationCachingEnabled(true);
@@ -112,11 +115,10 @@ public class UrlRealm
         usernamePasswordToken.getUsername(), new String(usernamePasswordToken.getPassword())));
     final HttpClient client = hc4Provider.createHttpClient(ctx);
     try {
-      final String url = urlRealmConfiguration.getConfiguration().getBaseUrl();
-      final HttpResponse response = client.execute(new HttpGet(url));
+      final HttpResponse response = client.execute(new HttpGet(baseUrl));
 
       try {
-        logger.debug("URL Realm user \"{}\" validated against URL={} as {}", usernamePasswordToken.getUsername(), url,
+        logger.debug("URL Realm user \"{}\" validated against URL={} as {}", usernamePasswordToken.getUsername(), baseUrl,
             response.getStatusLine());
         final boolean success =
             response.getStatusLine().getStatusCode() >= 200 && response.getStatusLine().getStatusCode() <= 299;
@@ -140,7 +142,7 @@ public class UrlRealm
     }
     // add the default role
     final SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
-    authorizationInfo.addRole(urlRealmConfiguration.getConfiguration().getDefaultRole());
+    authorizationInfo.addRole(defaultRole);
     return authorizationInfo;
   }
 }

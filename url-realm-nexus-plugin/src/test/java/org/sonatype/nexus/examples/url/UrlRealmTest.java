@@ -18,13 +18,10 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.sonatype.nexus.examples.url.config.model.Configuration;
-
 import org.sonatype.nexus.apachehttpclient.Hc4Provider;
 import org.sonatype.nexus.configuration.application.ApplicationConfiguration;
 import org.sonatype.nexus.proxy.storage.remote.DefaultRemoteStorageContext;
 import org.sonatype.nexus.proxy.storage.remote.RemoteStorageContext;
-import org.sonatype.nexus.examples.url.config.UrlRealmConfiguration;
 import org.sonatype.sisu.litmus.testsupport.TestSupport;
 import org.sonatype.tests.http.server.api.Behaviour;
 import org.sonatype.tests.http.server.fluent.Behaviours;
@@ -62,9 +59,6 @@ public class UrlRealmTest
 
   @Mock
   protected ApplicationConfiguration applicationConfiguration;
-
-  @Mock
-  protected UrlRealmConfiguration urlRealmConfiguration;
 
   @Mock
   protected Hc4Provider hc4Provider;
@@ -113,13 +107,7 @@ public class UrlRealmTest
     // prepare URLRealm
     when(applicationConfiguration.getGlobalRemoteStorageContext()).thenReturn(new DefaultRemoteStorageContext(null));
 
-    final Configuration model = new Configuration();
-    model.setVersion(Configuration.MODEL_VERSION);
-    model.setBaseUrl(server.getUrl().toString() + "/foo");
-    model.setDefaultRole(DEFAULT_ROLE);
-    when(urlRealmConfiguration.getConfiguration()).thenReturn(model);
-
-    urlRealm = new UrlRealm(applicationConfiguration, urlRealmConfiguration, hc4Provider);
+    urlRealm = new UrlRealm(applicationConfiguration, hc4Provider, server.getUrl().toString() + "/foo", DEFAULT_ROLE);
   }
 
   @After
