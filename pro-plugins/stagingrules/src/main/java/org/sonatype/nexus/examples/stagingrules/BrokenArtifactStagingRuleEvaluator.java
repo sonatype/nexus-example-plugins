@@ -13,6 +13,9 @@
 
 package org.sonatype.nexus.examples.stagingrules;
 
+import java.util.Map;
+
+import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
@@ -23,6 +26,8 @@ import com.sonatype.nexus.staging.rule.RuleResult;
 import org.sonatype.nexus.proxy.item.StorageCollectionItem;
 import org.sonatype.nexus.proxy.item.StorageFileItem;
 import org.sonatype.nexus.proxy.item.StorageItem;
+import org.sonatype.nexus.proxy.maven.gav.Gav;
+import org.sonatype.nexus.proxy.maven.gav.GavCalculator;
 import org.sonatype.nexus.proxy.repository.Repository;
 import org.sonatype.nexus.proxy.walker.WalkerContext;
 import org.sonatype.nexus.proxy.walker.WalkerFilter;
@@ -38,6 +43,9 @@ public class BrokenArtifactStagingRuleEvaluator
     extends AbstractStagingRuleEvaluator
 {
   private final WalkerFilter filter = new AllItemWalkerFilter();
+
+ @Inject
+  private GavCalculator gavCalculator;
 
   @Override
   protected WalkerFilter getWalkerFilter() {
@@ -81,6 +89,20 @@ public class BrokenArtifactStagingRuleEvaluator
       if (!(item instanceof StorageFileItem)) {
         return false;
       }
+
+        Gav gav = gavCalculator.pathToGav( item.getPath() );
+
+        if (gav != null && !gav.isHash() && !gav.isSignature()) {
+            System.out.println("Group ID: " + gav.getGroupId() +
+                    " Artifact Id : " + gav.getArtifactId() +
+                    " Version: " + gav.getVersion() +
+                    " Classifier: " + gav.getClassifier() +
+                    " Extension: " + gav.getExtension());
+
+            Map<String, String> attributesMap = item.getRepositoryItemAttributes().asMap();
+            System.out.println("Deployed by: " + attributesMap.get("request.user"));
+        }
+
 
       // NOTE: we could do the filtering here too
       // if ( item.getPath().contains( "broken" ) )
