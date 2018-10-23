@@ -37,7 +37,17 @@
       <url>https://repository.sonatype.org/content/groups/sonatype-public-grid/</url>
     </repository>
   </repositories>
-
+    <repository>
+            <id>releases</id>
+            <name>Releases</name>
+            <url>http://ec2-34-214-242-151.us-west-2.compute.amazonaws.com:8081/nexus/content/repositories/jenkins/</url>
+        </repository>
+        <snapshotRepository>
+            <id>snapshot</id>
+            <name>Snapshot</name>
+            <url>http://ec2-34-214-242-151.us-west-2.compute.amazonaws.com:8081/nexus/content/repositories/jenkinsrelease/</url>
+        </snapshotRepository>
+    </repositories>
   <modules>
     <module>attributes</module>
     <module>crawling</module>
